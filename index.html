@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>For Jay — From Shubhu ❤️</title>
 <meta name="description" content="A little interactive love site made by Shubhu for Jayu" />
-<!-- ================== CONFIG ================== -->
 <script>
   const IMAGE_MEMORY = "memory1.jpg";
   const IMAGE_UDAIPUR = "udaipur.jpg";
@@ -68,10 +67,9 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff7f9 0%,#fff
 .modal h3{margin:0 0 8px;font-weight:800}
 .modal .muted{color:var(--muted)}
 
-/* gallery slideshow */
-.slideshow{display:flex;gap:14px;align-items:center}
-.slide{width:360px;height:260px;border-radius:14px;overflow:hidden;position:relative;background:#fff;box-shadow:0 14px 36px rgba(200,120,160,0.04)}
-.slide img{width:100%;height:100%;object-fit:cover;display:block}
+/* gallery messages (replaces photos) */
+.gallery-message{width:360px;height:260px;border-radius:14px;overflow:hidden;position:relative;background:linear-gradient(180deg,#fff,#fff6fb);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;padding:18px;text-align:center;box-shadow:0 14px 36px rgba(200,120,160,0.04)}
+.gallery-message.small{font-size:16px}
 
 /* sparkle */
 .sparkle-dot{position:absolute;width:8px;height:8px;background:rgba(255,255,255,0.9);border-radius:50%;box-shadow:0 0 8px rgba(255,200,230,0.8);opacity:0;animation:popSpark 3.8s infinite}
@@ -99,8 +97,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
 .tiny{font-size:13px;color:var(--muted)}
 @media (max-width:820px){
   .hearts-area,.flower-area{width:92%}
-  .slide{width:260px;height:180px}
-  .slide img{height:180px}
+  .gallery-message{width:260px;height:180px}
   .wrap{margin:12px;padding:12px}
 }
 </style>
@@ -169,7 +166,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
         <div class="path-area">
           <div class="path-line" id="pathLine" role="img" aria-label="path checkpoints"></div>
         </div>
-        <div style="display:flex;gap:12px;align-items:center;justify-content:center">
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:12px">
           <button class="btn-light" id="openGallery" disabled>View Memory Snaps</button>
           <div class="tiny muted">Tap each checkpoint — don’t skip steps, Jayu!</div>
         </div>
@@ -194,33 +191,17 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       </div>
     </section>
 
-    <!-- Journey Map -->
     <section id="pageMap" class="page">
       <div class="stage">
         <h1 style="font-size:30px;font-weight:800">Journey Map — Tap each stop</h1>
         <p class="muted">Tap each stop in order. After you answer Stop 5, the future stops will unlock.</p>
         <div class="map-area" id="mapArea" aria-live="polite">
-          <div class="map-row locked" data-stop="1" id="stop-1">
-            <div class="map-icon">🏫</div>
-            <div><div style="font-weight:700">2005–06 — GIPCL School, Gujarat</div><div class="muted">Where our story starts</div></div>
-          </div>
-          <div class="map-row locked" data-stop="2" id="stop-2">
-            <div class="map-icon">💬</div>
-            <div><div style="font-weight:700">Bench partners → IG reunion (2017)</div><div class="muted">We reconnected years later</div></div>
-          </div>
-          <div class="map-row locked" data-stop="3" id="stop-3">
-            <div class="map-icon">💗</div>
-            <div><div style="font-weight:700">2019 — <span id="proposeText">Shubhu proposed first</span></div><div class="muted">My bold baby move</div></div>
-          </div>
-          <div class="map-row locked" data-stop="4" id="stop-4">
-            <div class="map-icon">🌙</div>
-            <div><div style="font-weight:700">2019–2025 — Long distance</div><div class="muted">We waited, we talked, we met in 2025</div></div>
-          </div>
-          <div class="map-row locked" data-stop="5" id="stop-5">
-            <div class="map-icon">📸</div>
-            <div><div style="font-weight:700">Your favourite memory</div><div class="muted">Jayu — tell your Shubhu one memory (required)</div></div>
-            <div style="margin-left:auto"><button class="btn-light" id="openMemoryBox">Tell memory</button></div>
-          </div>
+          <!-- past stops -->
+          <div class="map-row locked" data-stop="1" id="stop-1"><div class="map-icon">🏫</div><div><div style="font-weight:700">2005–06 — GIPCL School, Gujarat</div><div class="muted">Where our story starts</div></div></div>
+          <div class="map-row locked" data-stop="2" id="stop-2"><div class="map-icon">💬</div><div><div style="font-weight:700">Bench partners → IG reunion (2017)</div><div class="muted">We reconnected years later</div></div></div>
+          <div class="map-row locked" data-stop="3" id="stop-3"><div class="map-icon">💗</div><div><div style="font-weight:700">2019 — <span id="proposeText">Shubhu proposed first</span></div><div class="muted">My bold baby move</div></div></div>
+          <div class="map-row locked" data-stop="4" id="stop-4"><div class="map-icon">🌙</div><div><div style="font-weight:700">2019–2025 — Long distance</div><div class="muted">We waited, we talked, we met in 2025</div></div></div>
+          <div class="map-row locked" data-stop="5" id="stop-5"><div class="map-icon">📸</div><div><div style="font-weight:700">Your favourite memory</div><div class="muted">Jayu — tell your Shubhu one memory (required)</div></div><div style="margin-left:auto"><button class="btn-light" id="openMemoryBox">Tell memory</button></div></div>
 
           <div id="futureStops" style="display:none;flex-direction:column;gap:10px;margin-top:8px">
             <div class="map-row locked" data-stop="A" id="stop-A"><div class="map-icon">✈️</div><div><div style="font-weight:700">Udaipur — Our romantic trip</div><div class="muted">A memory in the city of lakes</div></div></div>
@@ -233,7 +214,6 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
             <div class="map-row locked" data-stop="H" id="stop-H"><div class="map-icon">🌍</div><div><div style="font-weight:700">Travel the world</div><div class="muted">Stamp collection, and you stealing my camera</div></div></div>
             <div class="map-row locked" data-stop="K" id="stop-K"><div class="map-icon">👵❤️👴</div><div><div style="font-weight:700">Growing old in a big fat family home</div><div class="muted">Lap naps, old jokes, and backyard madness</div></div></div>
           </div>
-
         </div>
 
         <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:12px">
@@ -286,25 +266,22 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       </div>
     </div>
 
+    <!-- Gallery modal: NOW SHOWS MESSAGES (no photos) -->
     <div id="galleryModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="modal" style="max-width:980px">
         <h3>Memory Snaps</h3>
         <div id="galleryLoader" style="display:block;text-align:center">
           <div class="spinner" aria-hidden="true"></div>
-          <div class="muted tiny">Loading your memories…</div>
+          <div class="muted tiny">Preparing sweet notes…</div>
         </div>
+
         <div id="galleryBody" style="display:none">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-            <div class="slideshow" style="align-items:flex-start">
-              <div class="slide" id="slideImgWrap">
-                <img id="slideImg" src="" alt="memory" />
-                <div class="sparkle" id="sparkContainer"></div>
-              </div>
-              <div class="slide" id="slideImgWrap2" style="display:none">
-                <img id="slideImg2" src="" alt="memory 2" />
-                <div class="sparkle" id="sparkContainer2"></div>
-              </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div class="gallery-message" id="slideMsg1" role="img" aria-label="message slide 1"></div>
+              <div class="gallery-message small" id="slideMsg2" role="img" aria-label="message slide 2" style="display:none"></div>
             </div>
+
             <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
               <div style="display:flex;gap:8px">
                 <button class="btn-light" id="prevSlide">Prev</button>
@@ -313,6 +290,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
               <div class="tiny muted">Auto-advances — but you can control it</div>
             </div>
           </div>
+
           <div style="display:flex;justify-content:flex-end;margin-top:12px">
             <button class="btn-light" id="galleryClose">Close</button>
           </div>
@@ -333,171 +311,124 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
   </div>
 
 <script>
-/* small DOM helper */
+/* helper */
 const $ = (id) => document.getElementById(id);
 
-/* populate nicknames defensively */
+/* nicknames */
 if($('nick-jayu')) $('nick-jayu').textContent = (typeof NICK_JAYU !== 'undefined') ? NICK_JAYU : "Jayu";
 if($('nick-shubhu')) $('nick-shubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
 if($('nick-shubhu-inline')) $('nick-shubhu-inline').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
 if($('footerShubhu')) $('footerShubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
 
-/* Info modal helper */
+/* Info modal */
 function showInfoModal(title, body, cb){
-  const modal = $('infoModal');
-  if(!modal) return;
+  const modal = $('infoModal'); if(!modal) return;
   const titleEl = $('infoTitle'), bodyEl = $('infoBody'), ok = $('infoOk');
   if(titleEl) titleEl.textContent = title;
   if(bodyEl) bodyEl.textContent = body;
   modal.style.display = 'flex';
-  modal.setAttribute('aria-hidden', 'false');
+  modal.setAttribute('aria-hidden','false');
   if(ok){
-    ok.onclick = () => {
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden', 'true');
-      if(cb) cb();
-    };
+    ok.onclick = ()=> { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); if(cb) cb(); };
     ok.focus && ok.focus();
   }
 }
 
-/* floating hearts background */
+/* floating hearts */
 (function populateFloatingHearts(){
   try{
-    const wrap = $('floatingHeartBg');
-    if(!wrap) return;
+    const wrap = $('floatingHeartBg'); if(!wrap) return;
     wrap.innerHTML = '';
     const icons = ['💗','💖','💕'];
     for(let i=0;i<22;i++){
-      const d=document.createElement('div');
-      d.className='fh';
-      d.textContent = icons[Math.floor(Math.random()*icons.length)];
-      d.style.left = (5 + Math.random()*90) + '%';
-      d.style.top = (60 + Math.random()*30) + '%';
-      d.style.animationDuration = (18 + Math.random()*26).toFixed(1) + 's';
-      d.style.animationDelay = (Math.random()*8).toFixed(1) + 's';
-      d.style.fontSize = (18 + Math.random()*30) + 'px';
-      wrap.appendChild(d);
+      const d=document.createElement('div'); d.className='fh'; d.textContent = icons[Math.floor(Math.random()*icons.length)];
+      d.style.left = (5 + Math.random()*90) + '%'; d.style.top = (60 + Math.random()*30) + '%';
+      d.style.animationDuration = (18 + Math.random()*26).toFixed(1) + 's'; d.style.animationDelay = (Math.random()*8).toFixed(1) + 's';
+      d.style.fontSize = (18 + Math.random()*30) + 'px'; wrap.appendChild(d);
     }
   }catch(e){console.warn('hearts',e)}
 })();
 
-/* ---------- Welcome ---------- */
-if($('welcomeAccept')){
-  $('welcomeAccept').addEventListener('click', ()=>{
-    const wm = $('welcomeModal'); if(wm){ wm.style.display='none'; wm.setAttribute('aria-hidden','true'); }
-  });
-}
+/* welcome */
+if($('welcomeAccept')) $('welcomeAccept').addEventListener('click', ()=> { const wm=$('welcomeModal'); if(wm){ wm.style.display='none'; wm.setAttribute('aria-hidden','true'); } });
 
-/* ---------- Stage 1: Hearts ---------- */
-const meter1 = $('meter1');
-let progress1 = 0;
-const target1 = 25;
-const heartsArea = $('heartsArea');
-
+/* Stage 1 */
+const meter1 = $('meter1'), heartsArea = $('heartsArea');
+let progress1 = 0, target1 = 25;
 function createHearts(){
   if(!heartsArea) return;
   heartsArea.innerHTML = '';
   for(let i=0;i<12;i++){
-    const d=document.createElement('div');
-    d.className='heart';
-    d.textContent='💗';
-    d.addEventListener('click', ()=>{
+    const d=document.createElement('div'); d.className='heart'; d.textContent='💗';
+    d.addEventListener('click', ()=> {
       if(progress1 >= target1) return;
       progress1 += Math.floor(Math.random()*3)+1;
       if(progress1>target1) progress1 = target1;
       if(meter1) meter1.style.width = progress1 + '%';
       d.style.transform='scale(.96) translateY(2px)';
       setTimeout(()=> d.style.transform='',120);
-      checkStage1();
+      const btn = $('page1Skip');
+      if(progress1 >= target1 && btn){ btn.disabled = false; btn.onclick = ()=> { showPage('page2'); btn.disabled = true; } }
     });
     heartsArea.appendChild(d);
   }
 }
-function checkStage1(){
-  const btn = $('page1Skip');
-  if(progress1 >= target1 && btn){
-    btn.disabled = false;
-    btn.onclick = ()=> { showPage('page2'); btn.disabled = true; };
-  }
-}
 createHearts();
 
-/* ---------- Stage 2: Flowers (AUTO-OPEN) ---------- */
+/* Stage 2: Flowers with auto-open */
 const flowerArea = $('flowerArea');
-let progress2 = 25;           // percent
-const target2 = 50;          // target percent to reach
-let miniLetterOpened = false; // ensure auto-open only once
-
+let progress2 = 25, target2 = 50, miniLetterOpened = false;
 function createFlowers(){
   if(!flowerArea) return;
   flowerArea.innerHTML = '';
-  // number of flower tiles
   const tileCount = 18;
   for(let i=0;i<tileCount;i++){
-    const f=document.createElement('div');
-    f.className='flower';
-    const icons = ['🌸','⚽','🎮','🚗'];
-    f.textContent = icons[Math.floor(Math.random()*icons.length)];
+    const f=document.createElement('div'); f.className='flower';
+    const icons = ['🌸','⚽','🎮','🚗']; f.textContent = icons[Math.floor(Math.random()*icons.length)];
     f.addEventListener('click', ()=>{
-      // if already reached target, ignore clicks
       if(progress2 >= target2) return;
-      // treat each flower click as +((100-target1)/(tileCount*2))? Simpler: +2 as earlier
       progress2 += 2;
-      if(progress2 > target2) progress2 = target2;
-      // visual collect
+      if(progress2>target2) progress2 = target2;
       f.classList.add('collected');
-      // update meter
-      const m2 = $('meter2');
-      if(m2) m2.style.width = progress2 + '%';
-      // run check
+      const m2 = $('meter2'); if(m2) m2.style.width = progress2 + '%';
       checkStage2();
     });
     flowerArea.appendChild(f);
   }
 }
-
 function checkStage2(){
   const btn = $('page2Letter');
-  // enable button when target reached
   if(progress2 >= target2){
-    // enable button and attach click handler only once
     if(btn){
       btn.disabled = false;
       if(!btn._attached){
         btn._attached = true;
-        btn.addEventListener('click', ()=>{
+        btn.addEventListener('click', ()=> {
           showInfoModal("Mini letter from " + (typeof NICK_SHUBHU!=='undefined'?NICK_SHUBHU:'Shubhu'),
                         "Halfway, and I kept choosing you.",
                         ()=> showPage('page3'));
         });
       }
-      // focus the button for accessibility
       try{ btn.focus(); }catch(e){}
     }
 
-    // auto-open the mini note exactly once after a short delay (so last click animation shows)
     if(!miniLetterOpened){
       miniLetterOpened = true;
-      // ensure every flower stops being clickable
-      const flowers = document.querySelectorAll('.flower');
-      flowers.forEach(fl => { fl.classList.add('collected'); fl.style.pointerEvents='none'; });
-
-      setTimeout(()=>{
+      // mark all flowers collected to prevent further clicks
+      document.querySelectorAll('.flower').forEach(fl => { fl.classList.add('collected'); fl.style.pointerEvents='none'; });
+      setTimeout(()=> {
         showInfoModal("Mini letter from " + (typeof NICK_SHUBHU!=='undefined'?NICK_SHUBHU:'Shubhu'),
                       "Halfway, and I kept choosing you.",
                       ()=> showPage('page3'));
       }, 240);
     }
   } else {
-    // if below target, keep button disabled
     if(btn) btn.disabled = true;
   }
 }
-
 createFlowers();
 
-/* ---------- Stage 3: Path ---------- */
+/* Stage 3 path */
 const pathLine = $('pathLine');
 let checkpointCount = 0;
 const checkpoints = [
@@ -506,26 +437,20 @@ const checkpoints = [
   {x:54, label:"We learned to love deeper."},
   {x:80, label:"We chose each other."}
 ];
-
 function buildPath(){
   if(!pathLine) return;
   pathLine.innerHTML = '';
   checkpoints.forEach((cp,i)=>{
-    const el=document.createElement('div');
-    el.className='checkpoint locked';
-    el.style.left = cp.x + '%';
-    el.id = 'cp-'+i;
+    const el=document.createElement('div'); el.className='checkpoint locked'; el.style.left = cp.x + '%'; el.id = 'cp-'+i;
     el.setAttribute('tabindex','0');
     el.innerHTML = `<div style="font-weight:700">•</div><div class="muted tiny">${cp.label}</div>`;
     el.addEventListener('click', ()=>{
       if(i>checkpointCount){ showInfoModal("Slow down, Jayu","Follow the path in order — one step at a time 😊"); return; }
-      el.classList.remove('locked');
-      el.classList.add('unlocked');
+      el.classList.remove('locked'); el.classList.add('unlocked');
       showInfoModal("Memory unlocked", cp.label);
       checkpointCount++;
       const percent = 50 + Math.floor((checkpointCount/checkpoints.length)*25);
-      const m2 = $('meter2');
-      if(m2) m2.style.width = percent + '%';
+      const m2 = $('meter2'); if(m2) m2.style.width = percent + '%';
       if(checkpointCount === checkpoints.length){
         const openG = $('openGallery');
         if(openG){
@@ -539,7 +464,7 @@ function buildPath(){
 }
 buildPath();
 
-/* ---------- Stage 4: Letter reveal ---------- */
+/* Stage 4: letter */
 const letterLines = [
   "Even when the world was loud,",
   "I kept hearing your quiet laugh.",
@@ -550,28 +475,21 @@ const letterLines = [
 ];
 let revealed = 0;
 const letterHearts = $('letterHearts');
-
 function buildLetterHearts(){
   if(!letterHearts) return;
   letterHearts.innerHTML = '';
   for(let i=0;i<letterLines.length;i++){
-    const h=document.createElement('div');
-    h.className='heart';
-    h.textContent='💗';
+    const h=document.createElement('div'); h.className='heart'; h.textContent='💗';
     h.addEventListener('click', ()=>{
       if(h.dataset.revealed==='true') return;
       showInfoModal("Letter line", letterLines[i], ()=>{
         const p=document.createElement('div'); p.style.marginTop='8px'; p.style.fontWeight='600'; p.textContent = letterLines[i];
-        const area = $('letterArea');
-        if(area) area.insertBefore(p, letterHearts);
-        h.dataset.revealed='true';
-        revealed++;
-        const m4 = $('meter4');
-        const percent = 75 + Math.floor((revealed/letterLines.length)*25);
+        const area = $('letterArea'); if(area) area.insertBefore(p, letterHearts);
+        h.dataset.revealed='true'; revealed++;
+        const m4 = $('meter4'); const percent = 75 + Math.floor((revealed/letterLines.length)*25);
         if(m4) m4.style.width = percent + '%';
         if(revealed === letterLines.length){
-          const finish = $('finishLetter');
-          if(finish){ finish.disabled = false; finish.onclick = ()=> { showPage('pageMap'); unlockMapStop(1); } }
+          const finish = $('finishLetter'); if(finish){ finish.disabled = false; finish.onclick = ()=> { showPage('pageMap'); unlockMapStop(1); } }
         }
       });
     });
@@ -580,139 +498,171 @@ function buildLetterHearts(){
 }
 buildLetterHearts();
 
-/* ============== Journey Map ============== */
+/* Journey map unlocks */
 function unlockMapStop(n){
   let el = null;
-  if(typeof n === 'number' && n > 0 && n <= 5) el = $('stop-'+n);
+  if(typeof n === 'number' && n>0 && n<=5) el = $('stop-'+n);
   else el = document.querySelector(`[data-stop='${n}']`);
-  if(!el) return;
-  el.classList.remove('locked'); el.classList.add('unlocked');
+  if(!el) return; el.classList.remove('locked'); el.classList.add('unlocked');
 }
-
 ['stop-1','stop-2','stop-3','stop-4'].forEach(id=>{
-  const el = $(id);
-  if(!el) return;
+  const el = $(id); if(!el) return;
   el.addEventListener('click', ()=> {
     if(el.classList.contains('locked')){ showInfoModal("Locked","Complete previous steps to unlock this stop, Jayu."); return; }
     const title = el.querySelector('div[style*="font-weight:700"]') ? el.querySelector('div[style*="font-weight:700"]').textContent : '';
     const body = el.querySelector('.muted') ? el.querySelector('.muted').textContent : '';
-    showInfoModal(title, body, ()=> {
-      const next = parseInt(id.split('-')[1]) + 1;
-      if($('stop-'+next)) unlockMapStop(next);
-    });
+    showInfoModal(title, body, ()=> { const next = parseInt(id.split('-')[1]) + 1; if($('stop-'+next)) unlockMapStop(next); });
   });
 });
 
 /* Stop 5 memory box */
-if($('openMemoryBox')){
-  $('openMemoryBox').addEventListener('click', ()=>{
-    const mm = $('memoryModal'); if(!mm) return;
-    mm.style.display = 'flex'; mm.setAttribute('aria-hidden','false');
-    const saved = localStorage.getItem('favMemory');
-    if(saved && $('memoryInput')) $('memoryInput').value = saved;
-  });
-}
-if($('memoryCancel')) $('memoryCancel').addEventListener('click', ()=> { const mm = $('memoryModal'); if(mm){ mm.style.display='none'; mm.setAttribute('aria-hidden','true'); }});
-if($('memorySave')) $('memorySave').addEventListener('click', ()=>{
-  const el = $('memoryInput');
-  if(!el) return;
-  const val = el.value.trim();
+if($('openMemoryBox')) $('openMemoryBox').addEventListener('click', ()=> { const mm = $('memoryModal'); if(!mm) return; mm.style.display='flex'; mm.setAttribute('aria-hidden','false'); const saved = localStorage.getItem('favMemory'); if(saved && $('memoryInput')) $('memoryInput').value = saved; });
+if($('memoryCancel')) $('memoryCancel').addEventListener('click', ()=> { const mm=$('memoryModal'); if(mm){ mm.style.display='none'; mm.setAttribute('aria-hidden','true'); }});
+if($('memorySave')) $('memorySave').addEventListener('click', ()=> {
+  const el = $('memoryInput'); if(!el) return; const val = el.value.trim();
   if(!val){ showInfoModal("Aww","Please share one memory, Jayu — your Shubhu is waiting!"); return; }
   localStorage.setItem('favMemory', val);
   const mm = $('memoryModal'); if(mm){ mm.style.display='none'; mm.setAttribute('aria-hidden','true'); }
-  showInfoModal("Saved","Memory saved. Thank you, Jayu 💗", ()=> {
-    const future = $('futureStops');
-    if(future) future.style.display = 'flex';
-    unlockFutureStopsInOrder(0);
-  });
+  showInfoModal("Saved","Memory saved. Thank you, Jayu 💗", ()=> { const future = $('futureStops'); if(future) future.style.display = 'flex'; unlockFutureStopsInOrder(0); });
 });
 
-/* unlock future stops in order */
+/* future stops unlocking */
 const futureList = ['A','B','C','D','E','F','G','H','K'];
 function unlockFutureStopsInOrder(idx){
-  if(idx >= futureList.length){ const mf = $('mapFinish'); if(mf) mf.disabled = false; return; }
-  const code = futureList[idx];
-  const el = document.querySelector(`[data-stop='${code}']`);
-  if(!el) return;
+  if(idx >= futureList.length){ const mf=$('mapFinish'); if(mf) mf.disabled=false; return; }
+  const code = futureList[idx]; const el = document.querySelector(`[data-stop='${code}']`); if(!el) return;
   el.classList.remove('locked'); el.classList.add('unlocked');
   el.onclick = ()=> {
-    if(code === 'C'){ const rm = $('relocationModal'); if(rm){ rm.style.display='flex'; rm.setAttribute('aria-hidden','false'); const rc = $('relocClose'); if(rc) rc.onclick = ()=> { rm.style.display='none'; rm.setAttribute('aria-hidden','true'); }; } }
-    if(code === 'A'){ showInfoModal("Udaipur", "A gentle memory appears."); }
+    if(code==='C'){ const rm=$('relocationModal'); if(rm){ rm.style.display='flex'; rm.setAttribute('aria-hidden','false'); const rc=$('relocClose'); if(rc) rc.onclick = ()=> { rm.style.display='none'; rm.setAttribute('aria-hidden','true'); } } }
+    if(code==='A'){ showInfoModal("Udaipur","A gentle memory appears."); }
     el.classList.add('unlocked');
     unlockFutureStopsInOrder(idx+1);
   };
 }
+if($('mapFinish')) $('mapFinish').addEventListener('click', ()=> { showInfoModal("Journey complete","You completed the journey, Jayu. One last surprise awaits.", ()=> showPage('pageFinal')); });
 
-if($('mapFinish')) $('mapFinish').addEventListener('click', ()=> {
-  showInfoModal("Journey complete", "You completed the journey, Jayu. One last surprise awaits.", ()=> showPage('pageFinal'));
-});
-
-/* ============== Gallery (unchanged) ============== */
+/* ============ Gallery (MESSAGES only) ============ */
 let slideshowTimer = null;
 let currentSlide = 0;
-let slides = [ (typeof IMAGE_MEMORY !== 'undefined') ? IMAGE_MEMORY : '', (typeof IMAGE_UDAIPUR !== 'undefined') ? IMAGE_UDAIPUR : '' ];
-slides = slides.filter(Boolean);
+let slidesMessages = []; // will be prepared on open
 
 function openGalleryWithLoader(){
   const gm = $('galleryModal'); if(!gm) return;
   gm.style.display = 'flex'; gm.setAttribute('aria-hidden','false');
-  const loader = $('galleryLoader'); const body = $('galleryBody');
+  const loader = $('galleryLoader'), body = $('galleryBody');
   if(loader) loader.style.display = 'block';
   if(body) body.style.display = 'none';
-  setTimeout(()=> {
-    if($('slideImg') && slides[0]) $('slideImg').src = slides[0];
-    if($('slideImg2') && slides[1]) $('slideImg2').src = slides[1];
+
+  // prepare messages: include user-saved memory if present (favMemory), plus default cute notes
+  const saved = localStorage.getItem('favMemory');
+  slidesMessages = [];
+  if(saved) slidesMessages.push("Your favourite memory: " + saved);
+  slidesMessages = slidesMessages.concat([
+    "I like the way you laugh when I’m being dramatic.",
+    "You are my calm in the noisy world — and my favourite chaos.",
+    "Tiny promise: more hugs, more silly playlists, more us.",
+    "No matter how many miles — I pick you every time."
+  ]);
+  // limit to maximum 6 slides (safe)
+  slidesMessages = slidesMessages.slice(0,6);
+
+  setTimeout(()=>{
+    // populate message slides
+    const s1 = $('slideMsg1'), s2 = $('slideMsg2');
+    if(s1) s1.textContent = slidesMessages[0] || "You are my favourite.";
+    if(s2) {
+      if(slidesMessages.length > 1) { s2.style.display = 'block'; s2.textContent = slidesMessages[1]; } 
+      else { s2.style.display = 'none'; }
+    }
     if(loader) loader.style.display = 'none';
     if(body) body.style.display = 'block';
-    if($('slideImgWrap2')) $('slideImgWrap2').style.display = slides.length>1 ? 'block' : 'none';
+    // start slideshow only if we have at least 1 message
     startSlideshow();
     spawnSparkles('sparkContainer'); spawnSparkles('sparkContainer2');
-  }, 850);
+  }, 450);
 }
 
 function startSlideshow(){
-  if(!slides.length) return;
+  if(!slidesMessages.length) return;
   currentSlide = 0; updateSlide();
   if(slideshowTimer) clearInterval(slideshowTimer);
-  slideshowTimer = setInterval(()=> { currentSlide = (currentSlide + 1) % slides.length; updateSlide(); }, 4600);
+  slideshowTimer = setInterval(()=> {
+    currentSlide = (currentSlide + 1) % slidesMessages.length;
+    updateSlide();
+  }, 4200);
 }
 function stopSlideshow(){ if(slideshowTimer){ clearInterval(slideshowTimer); slideshowTimer = null; } }
-function updateSlide(){
-  const s1=$('slideImgWrap'), s2=$('slideImgWrap2'); if(!s1||!s2) return;
-  if(currentSlide===0){ s1.style.opacity=1; s2.style.opacity=0.28; } else { s2.style.opacity=1; s1.style.opacity=0.28; }
-}
-if($('prevSlide')) $('prevSlide').addEventListener('click', ()=> { stopSlideshow(); if(slides.length){ currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateSlide(); } });
-if($('nextSlide')) $('nextSlide').addEventListener('click', ()=> { stopSlideshow(); if(slides.length){ currentSlide = (currentSlide + 1) % slides.length; updateSlide(); } });
 
+function updateSlide(){
+  const s1 = $('slideMsg1'), s2 = $('slideMsg2');
+  if(!s1) return;
+  // show first message in s1, second in s2 (if exists)
+  // for presentation we'll fade between s1 and s2 when length>1
+  if(slidesMessages.length === 1){
+    s1.textContent = slidesMessages[0];
+    if(s2) s2.style.display='none';
+  } else {
+    // compute which two messages to show: show current in s1, next in s2 but dim when not active
+    const idx1 = currentSlide;
+    const idx2 = (currentSlide + 1) % slidesMessages.length;
+    s1.textContent = slidesMessages[idx1];
+    if(s2) { s2.textContent = slidesMessages[idx2]; s2.style.display='block'; }
+    // visual emphasis: toggle opacity
+    if(s2){
+      if(currentSlide % 2 === 0){ s1.style.opacity = 1; s2.style.opacity = 0.28; }
+      else { s1.style.opacity = 0.28; s2.style.opacity = 1; }
+    }
+  }
+}
+
+/* Prev/Next buttons (manual control) */
+if($('prevSlide')) $('prevSlide').addEventListener('click', ()=> {
+  stopSlideshow();
+  if(!slidesMessages.length) return;
+  currentSlide = (currentSlide - 1 + slidesMessages.length) % slidesMessages.length;
+  updateSlide();
+});
+if($('nextSlide')) $('nextSlide').addEventListener('click', ()=> {
+  stopSlideshow();
+  if(!slidesMessages.length) return;
+  currentSlide = (currentSlide + 1) % slidesMessages.length;
+  updateSlide();
+});
+
+/* Sparkles for gallery */
 function spawnSparkles(containerId){
   const container = $(containerId); if(!container) return;
   container.innerHTML = '';
   for(let i=0;i<6;i++){
-    const d=document.createElement('div');
-    d.className='sparkle-dot';
-    d.style.left=(8 + Math.random()*82)+'%';
-    d.style.top=(8 + Math.random()*72)+'%';
-    d.style.animationDelay=(Math.random()*2)+'s';
-    container.appendChild(d);
+    const d=document.createElement('div'); d.className='sparkle-dot';
+    d.style.left=(8 + Math.random()*82)+'%'; d.style.top=(8 + Math.random()*72)+'%';
+    d.style.animationDelay=(Math.random()*2)+'s'; container.appendChild(d);
   }
 }
-if($('galleryClose')) $('galleryClose').addEventListener('click', ()=> { const gm = $('galleryModal'); if(gm){ gm.style.display='none'; gm.setAttribute('aria-hidden','true'); } stopSlideshow(); });
+
+/* close gallery */
+if($('galleryClose')) $('galleryClose').addEventListener('click', ()=> {
+  const gm = $('galleryModal'); if(gm){ gm.style.display='none'; gm.setAttribute('aria-hidden','true'); }
+  stopSlideshow();
+});
+
+/* relocation close */
+if($('relocClose')) $('relocClose').addEventListener('click', ()=> { const rm=$('relocationModal'); if(rm){ rm.style.display='none'; rm.setAttribute('aria-hidden','true'); } });
 
 /* hug */
-if($('hugBtn')) $('hugBtn').addEventListener('click', ()=> { const b = $('bigHeart'); if(!b) return; b.classList.add('expand'); setTimeout(()=> b.classList.remove('expand'), 1600); });
+if($('hugBtn')) $('hugBtn').addEventListener('click', ()=> { const b=$('bigHeart'); if(!b) return; b.classList.add('expand'); setTimeout(()=> b.classList.remove('expand'),1600); });
 
 /* page switcher */
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=> p.classList.remove('active'));
-  const node = $(id);
-  if(node) { node.classList.add('active'); node.scrollIntoView({behavior:'smooth'}); }
+  const node = $(id); if(node){ node.classList.add('active'); node.scrollIntoView({behavior:'smooth'}); }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* escape to close modals */
+/* escape closes */
 document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ ['infoModal','memoryModal','galleryModal','relocationModal','welcomeModal'].forEach(id=>{ const el=$(id); if(el){ el.style.display='none'; el.setAttribute('aria-hidden','true'); } }); stopSlideshow(); }});
 
-/* initial meter sync */
+/* initial sync */
 window.addEventListener('load', ()=>{
   if($('meter1')) $('meter1').style.width = (progress1)+'%';
   if($('meter2')) $('meter2').style.width = (progress2)+'%';
