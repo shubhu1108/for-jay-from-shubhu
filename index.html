@@ -5,29 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>For Jay — From Shubhu ❤️</title>
 <meta name="description" content="A little interactive love site made by Shubhu for Jayu" />
-<!-- ================== CONFIG ==================
-Change only these constants if you uploaded different filenames.
-Make sure the filenames are correct (case-sensitive).
-================================================= -->
+<!-- ================== CONFIG ================== -->
 <script>
-  const IMAGE_MEMORY = "memory1.jpg";   // memory gallery photo (Stage 3)
-  const IMAGE_UDAIPUR = "udaipur.jpg";  // Udaipur photo (Journey Map)
+  const IMAGE_MEMORY = "memory1.jpg";
+  const IMAGE_UDAIPUR = "udaipur.jpg";
   const NICK_SHUBHU = "Shubhu";
   const NICK_JAYU = "Jayu";
 </script>
 
 <style>
-/* ================== Version C: Pinterest-like soft theme ================== */
 :root{
-  --bg1: #fff6f9;
-  --panel: #ffffff;
-  --accent1: #ff7aa5;
-  --accent2: #ffc2d9;
-  --muted: #6b656b;
-  --soft-shadow: 0 18px 48px rgba(160,80,120,0.08);
-  --glass: rgba(255,255,255,0.85);
-  --radius: 18px;
-  --maxw: 1000px;
+  --bg1: #fff6f9; --panel: #ffffff; --accent1: #ff7aa5; --accent2: #ffc2d9;
+  --muted: #6b656b; --soft-shadow: 0 18px 48px rgba(160,80,120,0.08);
+  --glass: rgba(255,255,255,0.85); --radius: 18px; --maxw: 1000px;
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff7f9 0%,#fff2f7 100%);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial;color:#2f2329; -webkit-font-smoothing:antialiased}
@@ -52,10 +42,9 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff7f9 0%,#fff
 .hearts-area{width:360px;height:300px;border-radius:14px;background:linear-gradient(180deg,#fff4f8,#fff9fb);display:flex;flex-wrap:wrap;gap:10px;padding:12px;align-content:flex-start;box-shadow:0 12px 36px rgba(200,130,160,0.04)}
 .heart{width:66px;height:66px;border-radius:14px;background:linear-gradient(90deg,#ffdfea,#ffb7d6);display:flex;align-items:center;justify-content:center;font-size:26px;color:white;user-select:none;box-shadow:0 14px 36px rgba(240,120,160,0.08);transition:transform .18s ease}
 .heart:active{transform:translateY(2px) scale(.98)}
-
-/* flower area */
 .flower-area{width:360px;height:360px;border-radius:14px;background:linear-gradient(180deg,#fffaf6,#fff6fb);overflow:hidden;padding:12px;display:flex;flex-wrap:wrap;align-content:flex-start;box-shadow:0 12px 36px rgba(180,120,150,0.04)}
-.flower{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#fff0f6,#ffdff0);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 8px 22px rgba(255,107,154,0.06)}
+.flower{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#fff0f6,#ffdff0);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 8px 22px rgba(255,107,154,0.06);cursor:pointer;transition:transform .18s ease, opacity .3s ease}
+.flower.collected{opacity:.28;transform:scale(.88);pointer-events:none}
 
 /* path checkpoints */
 .path-area{width:92%;max-width:820px;height:320px;border-radius:16px;background:linear-gradient(180deg,#fff,#fffaf6);display:flex;align-items:center;justify-content:center;padding:20px}
@@ -86,12 +75,7 @@ html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff7f9 0%,#fff
 
 /* sparkle */
 .sparkle-dot{position:absolute;width:8px;height:8px;background:rgba(255,255,255,0.9);border-radius:50%;box-shadow:0 0 8px rgba(255,200,230,0.8);opacity:0;animation:popSpark 3.8s infinite}
-@keyframes popSpark{
-  0%{transform:scale(.7) translateY(10px);opacity:0}
-  12%{opacity:1}
-  45%{transform:scale(1.6) translateY(-20px);opacity:.95}
-  100%{opacity:0}
-}
+@keyframes popSpark{0%{transform:scale(.7) translateY(10px);opacity:0}12%{opacity:1}45%{transform:scale(1.6) translateY(-20px);opacity:.95}100%{opacity:0}}
 
 /* spinner */
 .spinner{width:56px;height:56px;border-radius:50%;border:5px solid rgba(255,107,154,0.12);border-top-color:var(--accent1);animation:spin 1.2s linear infinite;margin:18px auto}
@@ -109,7 +93,6 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
 .fh{position:absolute;opacity:.12;transform:translateY(0);animation:fhFloat linear infinite}
 @keyframes fhFloat{0%{transform:translateY(60vh) scale(.6);opacity:.04}50%{transform:translateY(20vh) scale(1);opacity:.12}100%{transform:translateY(-40vh) scale(.95);opacity:0}}
 
-/* small helpers */
 .btn-primary{cursor:pointer;border:0;border-radius:12px;padding:10px 16px;font-weight:700;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;box-shadow:0 12px 36px rgba(255,90,140,0.08)}
 .btn-light{cursor:pointer;border-radius:12px;padding:8px 12px;background:transparent;border:1px solid rgba(255,107,154,0.12);color:var(--accent1);font-weight:700}
 .muted{color:var(--muted)}
@@ -123,7 +106,6 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
 </style>
 </head>
 <body>
-  <!-- Floating hearts background (ALL pages) -->
   <div id="floatingHeartBg" aria-hidden="true"></div>
 
   <div class="wrap" role="main" aria-label="For Jay site">
@@ -138,9 +120,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       <div class="tip">Shubhu ka attitude, Jayu ke liye mute.</div>
     </div>
 
-    <!-- Pages -->
-    <!-- Welcome modal (shown on first load) -->
-    <div id="welcomeModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div id="welcomeModal" class="modal-backdrop" role="dialog" aria-modal="true" style="display:flex">
       <div class="modal" style="text-align:center">
         <h3 id="welcomeTitle">Hey Jayu — a tiny rule from your baby</h3>
         <p class="muted">Close your eyes for a beat and imagine <strong id="nick-shubhu-inline">Shubhu</strong> pulling your face and saying:</p>
@@ -220,123 +200,38 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
         <h1 style="font-size:30px;font-weight:800">Journey Map — Tap each stop</h1>
         <p class="muted">Tap each stop in order. After you answer Stop 5, the future stops will unlock.</p>
         <div class="map-area" id="mapArea" aria-live="polite">
-          <!-- Past -->
           <div class="map-row locked" data-stop="1" id="stop-1">
             <div class="map-icon">🏫</div>
-            <div>
-              <div style="font-weight:700">2005–06 — GIPCL School, Gujarat</div>
-              <div class="muted">Where our story starts</div>
-            </div>
+            <div><div style="font-weight:700">2005–06 — GIPCL School, Gujarat</div><div class="muted">Where our story starts</div></div>
           </div>
-
           <div class="map-row locked" data-stop="2" id="stop-2">
             <div class="map-icon">💬</div>
-            <div>
-              <div style="font-weight:700">Bench partners → IG reunion (2017)</div>
-              <div class="muted">We reconnected years later</div>
-            </div>
+            <div><div style="font-weight:700">Bench partners → IG reunion (2017)</div><div class="muted">We reconnected years later</div></div>
           </div>
-
           <div class="map-row locked" data-stop="3" id="stop-3">
             <div class="map-icon">💗</div>
-            <div>
-              <div style="font-weight:700">2019 — <span id="proposeText">Shubhu proposed first</span></div>
-              <div class="muted">My bold baby move</div>
-            </div>
+            <div><div style="font-weight:700">2019 — <span id="proposeText">Shubhu proposed first</span></div><div class="muted">My bold baby move</div></div>
           </div>
-
           <div class="map-row locked" data-stop="4" id="stop-4">
             <div class="map-icon">🌙</div>
-            <div>
-              <div style="font-weight:700">2019–2025 — Long distance</div>
-              <div class="muted">We waited, we talked, we met in 2025</div>
-            </div>
+            <div><div style="font-weight:700">2019–2025 — Long distance</div><div class="muted">We waited, we talked, we met in 2025</div></div>
           </div>
-
           <div class="map-row locked" data-stop="5" id="stop-5">
             <div class="map-icon">📸</div>
-            <div>
-              <div style="font-weight:700">Your favourite memory</div>
-              <div class="muted">Jayu — tell your Shubhu one memory (required)</div>
-            </div>
-            <div style="margin-left:auto">
-              <button class="btn-light" id="openMemoryBox">Tell memory</button>
-            </div>
+            <div><div style="font-weight:700">Your favourite memory</div><div class="muted">Jayu — tell your Shubhu one memory (required)</div></div>
+            <div style="margin-left:auto"><button class="btn-light" id="openMemoryBox">Tell memory</button></div>
           </div>
 
-          <!-- Future stops -->
           <div id="futureStops" style="display:none;flex-direction:column;gap:10px;margin-top:8px">
-            <div class="map-row locked" data-stop="A" id="stop-A">
-              <div class="map-icon">✈️</div>
-              <div>
-                <div style="font-weight:700">Udaipur — Our romantic trip</div>
-                <div class="muted">A memory in the city of lakes</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="B" id="stop-B">
-              <div class="map-icon">🏡</div>
-              <div>
-                <div style="font-weight:700">Our first home</div>
-                <div class="muted">A cosy corner full of flowers</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="C" id="stop-C">
-              <div class="map-icon">💐</div>
-              <div>
-                <div style="font-weight:700">Wedding</div>
-                <div class="muted">Petals and a promise</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="D" id="stop-D">
-              <div class="map-icon">👶🐾</div>
-              <div>
-                <div style="font-weight:700">Babies & pets</div>
-                <div class="muted">A warm noisy home (but the quiet parts are cute)</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="E" id="stop-E">
-              <div class="map-icon">🚗</div>
-              <div>
-                <div style="font-weight:700">Dream car</div>
-                <div class="muted">Roadtrips & silly playlists</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="F" id="stop-F">
-              <div class="map-icon">🎮</div>
-              <div>
-                <div style="font-weight:700">Game room (PS5)</div>
-                <div class="muted">Late-night co-op & snacks</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="G" id="stop-G">
-              <div class="map-icon">💼</div>
-              <div>
-                <div style="font-weight:700">Business together</div>
-                <div class="muted">Our little empire</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="H" id="stop-H">
-              <div class="map-icon">🌍</div>
-              <div>
-                <div style="font-weight:700">Travel the world</div>
-                <div class="muted">Stamp collection, and you stealing my camera</div>
-              </div>
-            </div>
-
-            <div class="map-row locked" data-stop="K" id="stop-K">
-              <div class="map-icon">👵❤️👴</div>
-              <div>
-                <div style="font-weight:700">Growing old in a big fat family home</div>
-                <div class="muted">Lap naps, old jokes, and backyard madness</div>
-              </div>
-            </div>
+            <div class="map-row locked" data-stop="A" id="stop-A"><div class="map-icon">✈️</div><div><div style="font-weight:700">Udaipur — Our romantic trip</div><div class="muted">A memory in the city of lakes</div></div></div>
+            <div class="map-row locked" data-stop="B" id="stop-B"><div class="map-icon">🏡</div><div><div style="font-weight:700">Our first home</div><div class="muted">A cosy corner full of flowers</div></div></div>
+            <div class="map-row locked" data-stop="C" id="stop-C"><div class="map-icon">💐</div><div><div style="font-weight:700">Wedding</div><div class="muted">Petals and a promise</div></div></div>
+            <div class="map-row locked" data-stop="D" id="stop-D"><div class="map-icon">👶🐾</div><div><div style="font-weight:700">Babies & pets</div><div class="muted">A warm noisy home (but the quiet parts are cute)</div></div></div>
+            <div class="map-row locked" data-stop="E" id="stop-E"><div class="map-icon">🚗</div><div><div style="font-weight:700">Dream car</div><div class="muted">Roadtrips & silly playlists</div></div></div>
+            <div class="map-row locked" data-stop="F" id="stop-F"><div class="map-icon">🎮</div><div><div style="font-weight:700">Game room (PS5)</div><div class="muted">Late-night co-op & snacks</div></div></div>
+            <div class="map-row locked" data-stop="G" id="stop-G"><div class="map-icon">💼</div><div><div style="font-weight:700">Business together</div><div class="muted">Our little empire</div></div></div>
+            <div class="map-row locked" data-stop="H" id="stop-H"><div class="map-icon">🌍</div><div><div style="font-weight:700">Travel the world</div><div class="muted">Stamp collection, and you stealing my camera</div></div></div>
+            <div class="map-row locked" data-stop="K" id="stop-K"><div class="map-icon">👵❤️👴</div><div><div style="font-weight:700">Growing old in a big fat family home</div><div class="muted">Lap naps, old jokes, and backyard madness</div></div></div>
           </div>
 
         </div>
@@ -348,8 +243,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       </div>
     </section>
 
-    <!-- Memory modal -->
-    <div id="memoryModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+    <div id="memoryModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="modal">
         <h3>Jayu — your favourite memory</h3>
         <p class="muted tiny">Type one memory you love most. This saves locally on your device.</p>
@@ -361,8 +255,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       </div>
     </div>
 
-    <!-- Info modal (replace alerts) -->
-    <div id="infoModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+    <div id="infoModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="modal">
         <h3 id="infoTitle">Note</h3>
         <div id="infoBody" class="muted" style="margin-top:8px"></div>
@@ -372,8 +265,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       </div>
     </div>
 
-    <!-- Relocation modal: arc plane -->
-    <div id="relocationModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+    <div id="relocationModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="modal">
         <h3>Relocation — a tiny journey animation</h3>
         <p class="muted tiny">A visual map from Jharkhand → Washington DC (visual only)</p>
@@ -394,8 +286,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       </div>
     </div>
 
-    <!-- Gallery modal -->
-    <div id="galleryModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+    <div id="galleryModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="modal" style="max-width:980px">
         <h3>Memory Snaps</h3>
         <div id="galleryLoader" style="display:block;text-align:center">
@@ -429,7 +320,6 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
       </div>
     </div>
 
-    <!-- Final page -->
     <section id="pageFinal" class="page">
       <div class="stage" style="align-items:center;justify-content:center">
         <h1 style="font-size:32px;font-weight:800">Close your eyes and smile, Jayu…</h1>
@@ -443,25 +333,35 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
   </div>
 
 <script>
-/* ==================== Helpers & Nicknames ==================== */
-const $ = (id)=>document.getElementById(id);
-document.getElementById('nick-jayu').textContent = (typeof NICK_JAYU !== 'undefined') ? NICK_JAYU : "Jayu";
-document.getElementById('nick-shubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
-document.getElementById('nick-shubhu-inline').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
-document.getElementById('footerShubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
+/* small DOM helper */
+const $ = (id) => document.getElementById(id);
 
-/* Modal helper (replacement for alert) */
+/* populate nicknames defensively */
+if($('nick-jayu')) $('nick-jayu').textContent = (typeof NICK_JAYU !== 'undefined') ? NICK_JAYU : "Jayu";
+if($('nick-shubhu')) $('nick-shubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
+if($('nick-shubhu-inline')) $('nick-shubhu-inline').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
+if($('footerShubhu')) $('footerShubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
+
+/* Info modal helper */
 function showInfoModal(title, body, cb){
-  $('infoTitle').textContent = title;
-  $('infoBody').textContent = body;
-  $('infoModal').style.display = 'flex';
-  $('infoOk').onclick = ()=>{
-    $('infoModal').style.display = 'none';
-    if(cb) cb();
-  };
+  const modal = $('infoModal');
+  if(!modal) return;
+  const titleEl = $('infoTitle'), bodyEl = $('infoBody'), ok = $('infoOk');
+  if(titleEl) titleEl.textContent = title;
+  if(bodyEl) bodyEl.textContent = body;
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
+  if(ok){
+    ok.onclick = () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      if(cb) cb();
+    };
+    ok.focus && ok.focus();
+  }
 }
 
-/* Populate floating hearts (all pages) with slow drift & low opacity */
+/* floating hearts background */
 (function populateFloatingHearts(){
   try{
     const wrap = $('floatingHeartBg');
@@ -482,10 +382,12 @@ function showInfoModal(title, body, cb){
   }catch(e){console.warn('hearts',e)}
 })();
 
-/* ---------- Welcome modal flow ---------- */
-$('welcomeAccept').addEventListener('click', ()=>{
-  $('welcomeModal').style.display = 'none';
-});
+/* ---------- Welcome ---------- */
+if($('welcomeAccept')){
+  $('welcomeAccept').addEventListener('click', ()=>{
+    const wm = $('welcomeModal'); if(wm){ wm.style.display='none'; wm.setAttribute('aria-hidden','true'); }
+  });
+}
 
 /* ---------- Stage 1: Hearts ---------- */
 const meter1 = $('meter1');
@@ -494,6 +396,7 @@ const target1 = 25;
 const heartsArea = $('heartsArea');
 
 function createHearts(){
+  if(!heartsArea) return;
   heartsArea.innerHTML = '';
   for(let i=0;i<12;i++){
     const d=document.createElement('div');
@@ -503,7 +406,7 @@ function createHearts(){
       if(progress1 >= target1) return;
       progress1 += Math.floor(Math.random()*3)+1;
       if(progress1>target1) progress1 = target1;
-      meter1.style.width = progress1 + '%';
+      if(meter1) meter1.style.width = progress1 + '%';
       d.style.transform='scale(.96) translateY(2px)';
       setTimeout(()=> d.style.transform='',120);
       checkStage1();
@@ -512,68 +415,89 @@ function createHearts(){
   }
 }
 function checkStage1(){
-  if(progress1 >= target1){
-    $('page1Skip').disabled = false;
-    $('page1Skip').onclick = ()=> { showPage('page2'); $('page1Skip').disabled = true; };
+  const btn = $('page1Skip');
+  if(progress1 >= target1 && btn){
+    btn.disabled = false;
+    btn.onclick = ()=> { showPage('page2'); btn.disabled = true; };
   }
 }
 createHearts();
 
-/* ---------- Stage 2: Flower catch ---------- */
+/* ---------- Stage 2: Flowers (AUTO-OPEN) ---------- */
 const flowerArea = $('flowerArea');
-let progress2 = 25;
-const target2 = 50;
-let miniLetterOpened = false; // <<-- ADDED: flag to auto-open mini letter once
+let progress2 = 25;           // percent
+const target2 = 50;          // target percent to reach
+let miniLetterOpened = false; // ensure auto-open only once
 
 function createFlowers(){
+  if(!flowerArea) return;
   flowerArea.innerHTML = '';
-  for(let i=0;i<18;i++){
+  // number of flower tiles
+  const tileCount = 18;
+  for(let i=0;i<tileCount;i++){
     const f=document.createElement('div');
     f.className='flower';
     const icons = ['🌸','⚽','🎮','🚗'];
     f.textContent = icons[Math.floor(Math.random()*icons.length)];
     f.addEventListener('click', ()=>{
+      // if already reached target, ignore clicks
       if(progress2 >= target2) return;
+      // treat each flower click as +((100-target1)/(tileCount*2))? Simpler: +2 as earlier
       progress2 += 2;
-      if(progress2>target2) progress2 = target2;
-      $('meter2').style.width = progress2 + '%';
-      f.style.opacity='0.28';
-      f.style.transform='scale(.88)';
+      if(progress2 > target2) progress2 = target2;
+      // visual collect
+      f.classList.add('collected');
+      // update meter
+      const m2 = $('meter2');
+      if(m2) m2.style.width = progress2 + '%';
+      // run check
       checkStage2();
     });
     flowerArea.appendChild(f);
   }
 }
+
 function checkStage2(){
   const btn = $('page2Letter');
+  // enable button when target reached
   if(progress2 >= target2){
-    // enable the button and attach handler once
+    // enable button and attach click handler only once
     if(btn){
       btn.disabled = false;
       if(!btn._attached){
         btn._attached = true;
-        btn.onclick = ()=> {
+        btn.addEventListener('click', ()=>{
           showInfoModal("Mini letter from " + (typeof NICK_SHUBHU!=='undefined'?NICK_SHUBHU:'Shubhu'),
                         "Halfway, and I kept choosing you.",
                         ()=> showPage('page3'));
-        };
+        });
       }
+      // focus the button for accessibility
+      try{ btn.focus(); }catch(e){}
     }
 
-    // Auto-open the mini note exactly once when the flowers complete
+    // auto-open the mini note exactly once after a short delay (so last click animation shows)
     if(!miniLetterOpened){
       miniLetterOpened = true;
-      setTimeout(()=> {
+      // ensure every flower stops being clickable
+      const flowers = document.querySelectorAll('.flower');
+      flowers.forEach(fl => { fl.classList.add('collected'); fl.style.pointerEvents='none'; });
+
+      setTimeout(()=>{
         showInfoModal("Mini letter from " + (typeof NICK_SHUBHU!=='undefined'?NICK_SHUBHU:'Shubhu'),
                       "Halfway, and I kept choosing you.",
                       ()=> showPage('page3'));
-      }, 260);
+      }, 240);
     }
+  } else {
+    // if below target, keep button disabled
+    if(btn) btn.disabled = true;
   }
 }
+
 createFlowers();
 
-/* ---------- Stage 3: Path checkpoints ---------- */
+/* ---------- Stage 3: Path ---------- */
 const pathLine = $('pathLine');
 let checkpointCount = 0;
 const checkpoints = [
@@ -582,13 +506,16 @@ const checkpoints = [
   {x:54, label:"We learned to love deeper."},
   {x:80, label:"We chose each other."}
 ];
+
 function buildPath(){
+  if(!pathLine) return;
   pathLine.innerHTML = '';
   checkpoints.forEach((cp,i)=>{
     const el=document.createElement('div');
     el.className='checkpoint locked';
     el.style.left = cp.x + '%';
     el.id = 'cp-'+i;
+    el.setAttribute('tabindex','0');
     el.innerHTML = `<div style="font-weight:700">•</div><div class="muted tiny">${cp.label}</div>`;
     el.addEventListener('click', ()=>{
       if(i>checkpointCount){ showInfoModal("Slow down, Jayu","Follow the path in order — one step at a time 😊"); return; }
@@ -597,10 +524,14 @@ function buildPath(){
       showInfoModal("Memory unlocked", cp.label);
       checkpointCount++;
       const percent = 50 + Math.floor((checkpointCount/checkpoints.length)*25);
-      $('meter2').style.width = percent + '%';
+      const m2 = $('meter2');
+      if(m2) m2.style.width = percent + '%';
       if(checkpointCount === checkpoints.length){
-        $('openGallery').disabled = false;
-        $('openGallery').addEventListener('click', openGalleryWithLoader, {once:true});
+        const openG = $('openGallery');
+        if(openG){
+          openG.disabled = false;
+          openG.addEventListener('click', openGalleryWithLoader, {once:true});
+        }
       }
     });
     pathLine.appendChild(el);
@@ -619,7 +550,9 @@ const letterLines = [
 ];
 let revealed = 0;
 const letterHearts = $('letterHearts');
+
 function buildLetterHearts(){
+  if(!letterHearts) return;
   letterHearts.innerHTML = '';
   for(let i=0;i<letterLines.length;i++){
     const h=document.createElement('div');
@@ -629,14 +562,16 @@ function buildLetterHearts(){
       if(h.dataset.revealed==='true') return;
       showInfoModal("Letter line", letterLines[i], ()=>{
         const p=document.createElement('div'); p.style.marginTop='8px'; p.style.fontWeight='600'; p.textContent = letterLines[i];
-        $('letterArea').insertBefore(p, letterHearts);
+        const area = $('letterArea');
+        if(area) area.insertBefore(p, letterHearts);
         h.dataset.revealed='true';
         revealed++;
+        const m4 = $('meter4');
         const percent = 75 + Math.floor((revealed/letterLines.length)*25);
-        $('meter4').style.width = percent + '%';
+        if(m4) m4.style.width = percent + '%';
         if(revealed === letterLines.length){
-          $('finishLetter').disabled = false;
-          $('finishLetter').onclick = ()=> { showPage('pageMap'); unlockMapStop(1); };
+          const finish = $('finishLetter');
+          if(finish){ finish.disabled = false; finish.onclick = ()=> { showPage('pageMap'); unlockMapStop(1); } }
         }
       });
     });
@@ -645,21 +580,22 @@ function buildLetterHearts(){
 }
 buildLetterHearts();
 
-/* ================= Journey Map ================ */
+/* ============== Journey Map ============== */
 function unlockMapStop(n){
-  const el = (n>0 && n<=5) ? $('stop-'+n) : document.querySelector(`[data-stop='${n}']`);
+  let el = null;
+  if(typeof n === 'number' && n > 0 && n <= 5) el = $('stop-'+n);
+  else el = document.querySelector(`[data-stop='${n}']`);
   if(!el) return;
-  el.classList.remove('locked');
-  el.classList.add('unlocked');
+  el.classList.remove('locked'); el.classList.add('unlocked');
 }
 
-/* Past stops click handling */
 ['stop-1','stop-2','stop-3','stop-4'].forEach(id=>{
-  const el=$(id);
+  const el = $(id);
+  if(!el) return;
   el.addEventListener('click', ()=> {
     if(el.classList.contains('locked')){ showInfoModal("Locked","Complete previous steps to unlock this stop, Jayu."); return; }
-    const title = el.querySelector('div[style*="font-weight:700"]').textContent;
-    const body = el.querySelector('.muted').textContent;
+    const title = el.querySelector('div[style*="font-weight:700"]') ? el.querySelector('div[style*="font-weight:700"]').textContent : '';
+    const body = el.querySelector('.muted') ? el.querySelector('.muted').textContent : '';
     showInfoModal(title, body, ()=> {
       const next = parseInt(id.split('-')[1]) + 1;
       if($('stop-'+next)) unlockMapStop(next);
@@ -667,83 +603,89 @@ function unlockMapStop(n){
   });
 });
 
-/* Stop 5: favourite memory (mandatory) */
-$('openMemoryBox').addEventListener('click', ()=>{
-  $('memoryModal').style.display = 'flex';
-  const saved = localStorage.getItem('favMemory');
-  if(saved) $('memoryInput').value = saved;
-});
-$('memoryCancel').addEventListener('click', ()=> $('memoryModal').style.display = 'none');
-$('memorySave').addEventListener('click', ()=>{
-  const val = $('memoryInput').value.trim();
+/* Stop 5 memory box */
+if($('openMemoryBox')){
+  $('openMemoryBox').addEventListener('click', ()=>{
+    const mm = $('memoryModal'); if(!mm) return;
+    mm.style.display = 'flex'; mm.setAttribute('aria-hidden','false');
+    const saved = localStorage.getItem('favMemory');
+    if(saved && $('memoryInput')) $('memoryInput').value = saved;
+  });
+}
+if($('memoryCancel')) $('memoryCancel').addEventListener('click', ()=> { const mm = $('memoryModal'); if(mm){ mm.style.display='none'; mm.setAttribute('aria-hidden','true'); }});
+if($('memorySave')) $('memorySave').addEventListener('click', ()=>{
+  const el = $('memoryInput');
+  if(!el) return;
+  const val = el.value.trim();
   if(!val){ showInfoModal("Aww","Please share one memory, Jayu — your Shubhu is waiting!"); return; }
   localStorage.setItem('favMemory', val);
-  $('memoryModal').style.display = 'none';
+  const mm = $('memoryModal'); if(mm){ mm.style.display='none'; mm.setAttribute('aria-hidden','true'); }
   showInfoModal("Saved","Memory saved. Thank you, Jayu 💗", ()=> {
-    $('futureStops').style.display = 'flex';
+    const future = $('futureStops');
+    if(future) future.style.display = 'flex';
     unlockFutureStopsInOrder(0);
   });
 });
 
-/* Unlock future stops in order */
+/* unlock future stops in order */
 const futureList = ['A','B','C','D','E','F','G','H','K'];
 function unlockFutureStopsInOrder(idx){
-  if(idx >= futureList.length){ $('mapFinish').disabled = false; return; }
+  if(idx >= futureList.length){ const mf = $('mapFinish'); if(mf) mf.disabled = false; return; }
   const code = futureList[idx];
   const el = document.querySelector(`[data-stop='${code}']`);
   if(!el) return;
   el.classList.remove('locked'); el.classList.add('unlocked');
   el.onclick = ()=> {
-    // wedding triggers relocation modal
-    if(code === 'C'){ $('relocationModal').style.display = 'flex'; $('relocClose').onclick = ()=> $('relocationModal').style.display = 'none'; }
+    if(code === 'C'){ const rm = $('relocationModal'); if(rm){ rm.style.display='flex'; rm.setAttribute('aria-hidden','false'); const rc = $('relocClose'); if(rc) rc.onclick = ()=> { rm.style.display='none'; rm.setAttribute('aria-hidden','true'); }; } }
     if(code === 'A'){ showInfoModal("Udaipur", "A gentle memory appears."); }
-    // after click, mark done and unlock next
     el.classList.add('unlocked');
     unlockFutureStopsInOrder(idx+1);
   };
 }
 
-/* map finish */
-$('mapFinish').addEventListener('click', ()=> {
+if($('mapFinish')) $('mapFinish').addEventListener('click', ()=> {
   showInfoModal("Journey complete", "You completed the journey, Jayu. One last surprise awaits.", ()=> showPage('pageFinal'));
 });
 
-/* ================= Gallery: loader + slideshow + sparkles ================= */
+/* ============== Gallery (unchanged) ============== */
 let slideshowTimer = null;
 let currentSlide = 0;
-const slides = [ (typeof IMAGE_MEMORY !== 'undefined') ? IMAGE_MEMORY : '', (typeof IMAGE_UDAIPUR !== 'undefined') ? IMAGE_UDAIPUR : '' ];
+let slides = [ (typeof IMAGE_MEMORY !== 'undefined') ? IMAGE_MEMORY : '', (typeof IMAGE_UDAIPUR !== 'undefined') ? IMAGE_UDAIPUR : '' ];
+slides = slides.filter(Boolean);
 
 function openGalleryWithLoader(){
-  $('galleryModal').style.display = 'flex';
-  $('galleryLoader').style.display = 'block';
-  $('galleryBody').style.display = 'none';
+  const gm = $('galleryModal'); if(!gm) return;
+  gm.style.display = 'flex'; gm.setAttribute('aria-hidden','false');
+  const loader = $('galleryLoader'); const body = $('galleryBody');
+  if(loader) loader.style.display = 'block';
+  if(body) body.style.display = 'none';
   setTimeout(()=> {
-    $('slideImg').src = slides[0];
-    $('slideImg2').src = slides[1];
-    $('galleryLoader').style.display = 'none';
-    $('galleryBody').style.display = 'block';
-    $('slideImgWrap2').style.display = 'block';
+    if($('slideImg') && slides[0]) $('slideImg').src = slides[0];
+    if($('slideImg2') && slides[1]) $('slideImg2').src = slides[1];
+    if(loader) loader.style.display = 'none';
+    if(body) body.style.display = 'block';
+    if($('slideImgWrap2')) $('slideImgWrap2').style.display = slides.length>1 ? 'block' : 'none';
     startSlideshow();
-    spawnSparkles('sparkContainer');
-    spawnSparkles('sparkContainer2');
+    spawnSparkles('sparkContainer'); spawnSparkles('sparkContainer2');
   }, 850);
 }
 
 function startSlideshow(){
+  if(!slides.length) return;
   currentSlide = 0; updateSlide();
+  if(slideshowTimer) clearInterval(slideshowTimer);
   slideshowTimer = setInterval(()=> { currentSlide = (currentSlide + 1) % slides.length; updateSlide(); }, 4600);
 }
-function stopSlideshow(){ clearInterval(slideshowTimer); }
+function stopSlideshow(){ if(slideshowTimer){ clearInterval(slideshowTimer); slideshowTimer = null; } }
 function updateSlide(){
-  const s1=$('slideImgWrap'), s2=$('slideImgWrap2');
+  const s1=$('slideImgWrap'), s2=$('slideImgWrap2'); if(!s1||!s2) return;
   if(currentSlide===0){ s1.style.opacity=1; s2.style.opacity=0.28; } else { s2.style.opacity=1; s1.style.opacity=0.28; }
 }
-$('prevSlide').addEventListener('click', ()=> { stopSlideshow(); currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateSlide(); });
-$('nextSlide').addEventListener('click', ()=> { stopSlideshow(); currentSlide = (currentSlide + 1) % slides.length; updateSlide(); });
+if($('prevSlide')) $('prevSlide').addEventListener('click', ()=> { stopSlideshow(); if(slides.length){ currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateSlide(); } });
+if($('nextSlide')) $('nextSlide').addEventListener('click', ()=> { stopSlideshow(); if(slides.length){ currentSlide = (currentSlide + 1) % slides.length; updateSlide(); } });
 
 function spawnSparkles(containerId){
-  const container = $(containerId);
-  if(!container) return;
+  const container = $(containerId); if(!container) return;
   container.innerHTML = '';
   for(let i=0;i<6;i++){
     const d=document.createElement('div');
@@ -754,42 +696,28 @@ function spawnSparkles(containerId){
     container.appendChild(d);
   }
 }
+if($('galleryClose')) $('galleryClose').addEventListener('click', ()=> { const gm = $('galleryModal'); if(gm){ gm.style.display='none'; gm.setAttribute('aria-hidden','true'); } stopSlideshow(); });
 
-/* Gallery close */
-$('galleryClose').addEventListener('click', ()=> { $('galleryModal').style.display = 'none'; stopSlideshow(); });
-
-/* memory gallery convenience close */
-$('galleryClose').addEventListener('click', ()=> $('galleryModal').style.display='none');
-
-/* info modal close handled in showInfoModal */
-
-/* big hug animation */
-$('hugBtn').addEventListener('click', ()=> {
-  const b = $('bigHeart'); b.classList.add('expand'); setTimeout(()=> b.classList.remove('expand'), 1600);
-});
+/* hug */
+if($('hugBtn')) $('hugBtn').addEventListener('click', ()=> { const b = $('bigHeart'); if(!b) return; b.classList.add('expand'); setTimeout(()=> b.classList.remove('expand'), 1600); });
 
 /* page switcher */
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=> p.classList.remove('active'));
-  if($(id)) $(id).classList.add('active');
+  const node = $(id);
+  if(node) { node.classList.add('active'); node.scrollIntoView({behavior:'smooth'}); }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* accessibility: close modals with Escape */
-document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ ['infoModal','memoryModal','galleryModal','relocationModal','welcomeModal'].forEach(id=>{ if($(id)) $(id).style.display='none'; }); stopSlideshow(); }})
+/* escape to close modals */
+document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ ['infoModal','memoryModal','galleryModal','relocationModal','welcomeModal'].forEach(id=>{ const el=$(id); if(el){ el.style.display='none'; el.setAttribute('aria-hidden','true'); } }); stopSlideshow(); }});
 
-/* Small safety: if user refreshes on map or later step, we don't automatically persist active page in this version */
-/* If you want persistent pointer I can add localStorage pointer for current page */
-
-/* Extra: guard initial state: ensure page1 active when landing (if welcome closed) */
+/* initial meter sync */
 window.addEventListener('load', ()=>{
-  // ensure initial meter widths reflect state
-  $('meter1').style.width = (progress1)+'%';
-  $('meter2').style.width = (progress2)+'%';
-  $('meter4').style.width = (revealed ? (75 + Math.floor((revealed/letterLines.length)*25)) + '%' : '75%');
+  if($('meter1')) $('meter1').style.width = (progress1)+'%';
+  if($('meter2')) $('meter2').style.width = (progress2)+'%';
+  if($('meter4')) { const m4 = 75 + Math.floor((revealed/letterLines.length)*25); $('meter4').style.width = (revealed ? m4 + '%' : '75%'); }
 });
-
-/* End of script */
 </script>
 </body>
 </html>
