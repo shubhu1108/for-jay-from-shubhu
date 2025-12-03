@@ -5,123 +5,162 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>For Jay — From Shubhu ❤️</title>
 <meta name="description" content="A little interactive love site made by Shubhu for Jayu" />
-<!-- ===========  CONFIG: change these filenames if you uploaded different images =========== -->
+<!-- ================== CONFIG ==================
+Change only these constants if you uploaded different filenames.
+Make sure the filenames are correct (case-sensitive).
+================================================= -->
 <script>
-  // If you change filenames, update these three constants:
   const IMAGE_MEMORY = "memory1.jpg";   // memory gallery photo (Stage 3)
   const IMAGE_UDAIPUR = "udaipur.jpg";  // Udaipur photo (Journey Map)
   const NICK_SHUBHU = "Shubhu";
   const NICK_JAYU = "Jayu";
 </script>
+
 <style>
-  /* ---------- Basics & palette ---------- */
-  :root{
-    --bg: #fff5f8;
-    --panel: #fff;
-    --accent: #ff6b9a;
-    --accent-2: #ff9ac0;
-    --muted: #6e6a73;
-    --pink-soft: #ffeef6;
-    --radius: 16px;
-    --maxw: 980px;
-    --shadow: 0 12px 36px rgba(181,99,136,0.12);
-  }
-  html,body{height:100%;margin:0;font-family: system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,#fff6fb 0%,#fffaf6 100%); color:#332a30}
-  .wrap{max-width:var(--maxw);margin:26px auto;padding:20px;background:var(--panel);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
-  h1,h2{margin:0 0 10px}
-  .center{display:flex;align-items:center;justify-content:center}
-  .stage{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px}
-  button{cursor:pointer;border:0;border-radius:12px;padding:10px 16px;font-weight:600}
-  .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:0 8px 24px rgba(255,107,154,0.15)}
-  .btn-light{background:transparent;border:1px solid rgba(255,107,154,0.12);color:var(--accent)}
-  p.small{color:var(--muted);font-size:14px;margin:0}
+/* ================== Version C: Pinterest-like soft theme ================== */
+:root{
+  --bg1: #fff6f9;
+  --panel: #ffffff;
+  --accent1: #ff7aa5;
+  --accent2: #ffc2d9;
+  --muted: #6b656b;
+  --soft-shadow: 0 18px 48px rgba(160,80,120,0.08);
+  --glass: rgba(255,255,255,0.85);
+  --radius: 18px;
+  --maxw: 1000px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff7f9 0%,#fff2f7 100%);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial;color:#2f2329; -webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:28px auto;padding:18px;background:var(--panel);border-radius:26px;box-shadow:var(--soft-shadow);overflow:hidden}
+.header{display:flex;align-items:center;justify-content:space-between;padding:14px;border-radius:14px}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:60px;height:60px;border-radius:14px;background:linear-gradient(180deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:26px;box-shadow:0 10px 30px rgba(255,110,150,0.08)}
+.title{font-weight:800;font-size:18px}
+.subtitle{font-size:13px;color:var(--muted);margin-top:2px}
+.tip{color:var(--muted);font-size:14px}
 
-  /* ===== Page container (single-page app approach) ===== */
-  .page{display:none}
-  .page.active{display:block}
-  .header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:8px 12px}
-  .meter{width:100%;max-width:720px;background:linear-gradient(180deg,#fff 0%,#fffaf6 100%);border-radius:12px;padding:8px;border:1px solid rgba(0,0,0,0.04)}
-  .meter-bar{height:16px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:10px;width:0%;transition:width .3s ease}
+/* Page layout */
+.page{display:none;opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.9,.2,1), transform .7s cubic-bezier(.2,.9,.2,1)}
+.page.active{display:block;opacity:1;transform:none}
+.stage{min-height:66vh;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:flex-start;padding:28px}
 
-  /* hearts grid */
-  .hearts-area{width:320px;height:300px;border-radius:12px;background:linear-gradient(180deg,#fff0f6, #fff6fb);display:flex;flex-wrap:wrap;gap:8px;padding:10px;align-content:flex-start;overflow:hidden}
-  .heart{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#ffd0e0,#ff9ac0);display:flex;align-items:center;justify-content:center;font-size:22px;color:white;user-select:none;box-shadow:0 8px 20px rgba(255,108,150,0.12)}
-  .heart:active{transform:translateY(2px)}
+/* meters & blocks */
+.meter{width:100%;max-width:760px;background:linear-gradient(180deg,#fff,#fffaf6);border-radius:12px;padding:8px;border:1px solid rgba(0,0,0,0.04)}
+.meter-bar{height:16px;background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:10px;width:0%;transition:width .6s ease}
 
-  /* falling flowers */
-  .flower-area{width:320px;height:360px;border-radius:12px;background:linear-gradient(180deg,#fffaf6,#fff5fb);overflow:hidden;padding:8px;display:flex;flex-wrap:wrap;align-content:flex-start}
-  .flower{width:52px;height:52px;border-radius:10px;background:linear-gradient(90deg,#fff0f6,#ffdff0);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 6px 18px rgba(255,107,154,0.06)}
+/* hearts grid & flowers */
+.hearts-area{width:360px;height:300px;border-radius:14px;background:linear-gradient(180deg,#fff4f8,#fff9fb);display:flex;flex-wrap:wrap;gap:10px;padding:12px;align-content:flex-start;box-shadow:0 12px 36px rgba(200,130,160,0.04)}
+.heart{width:66px;height:66px;border-radius:14px;background:linear-gradient(90deg,#ffdfea,#ffb7d6);display:flex;align-items:center;justify-content:center;font-size:26px;color:white;user-select:none;box-shadow:0 14px 36px rgba(240,120,160,0.08);transition:transform .18s ease}
+.heart:active{transform:translateY(2px) scale(.98)}
 
-  /* path map */
-  .path-area{width:92%;max-width:760px;height:320px;border-radius:12px;background:linear-gradient(180deg,#fff,#fffaf6);display:flex;align-items:center;justify-content:center;padding:18px}
-  .path-line{width:88%;height:6px;background:repeating-linear-gradient(90deg,var(--accent) 0 10px, transparent 10px 20px);border-radius:12px;position:relative}
-  .checkpoint{position:absolute;top:-20px;transform:translateX(-50%);background:linear-gradient(180deg,#fff,#ffeef6);padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 12px 30px rgba(170,90,130,0.06)}
+/* flower area */
+.flower-area{width:360px;height:360px;border-radius:14px;background:linear-gradient(180deg,#fffaf6,#fff6fb);overflow:hidden;padding:12px;display:flex;flex-wrap:wrap;align-content:flex-start;box-shadow:0 12px 36px rgba(180,120,150,0.04)}
+.flower{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#fff0f6,#ffdff0);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 8px 22px rgba(255,107,154,0.06)}
 
-  /* letter reveal */
-  .letter-area{width:100%;max-width:720px;border-radius:12px;padding:18px;background:linear-gradient(180deg,#fff,#fff9fb);border:1px dashed rgba(255,107,154,0.12)}
+/* path checkpoints */
+.path-area{width:92%;max-width:820px;height:320px;border-radius:16px;background:linear-gradient(180deg,#fff,#fffaf6);display:flex;align-items:center;justify-content:center;padding:20px}
+.path-line{width:88%;height:8px;background:repeating-linear-gradient(90deg,#ffd7e5 0 12px, transparent 12px 24px);border-radius:12px;position:relative}
+.checkpoint{position:absolute;top:-30px;transform:translateX(-50%);background:var(--glass);padding:8px 12px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 12px 36px rgba(170,90,130,0.05);cursor:pointer;transition:transform .22s ease, box-shadow .22s ease}
+.checkpoint.unlocked{transform:translateX(-50%) scale(1.03);box-shadow:0 18px 48px rgba(200,100,140,0.08)}
 
-  /* journey map */
-  .map-area{width:100%;max-width:900px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff6fb);display:flex;flex-direction:column;gap:12px}
-  .map-row{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;background:linear-gradient(90deg,#fff,#fff6fb);border:1px solid rgba(0,0,0,0.03)}
-  .map-icon{width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,#ffdff0,#fff0f6);display:flex;align-items:center;justify-content:center;font-size:26px;color:#c03a6d}
-  .locked{opacity:.45;filter:grayscale(.08)}
-  .unlocked{animation:pop .4s ease}
-  @keyframes pop{0%{transform:scale(.92)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+/* letter reveal */
+.letter-area{width:100%;max-width:760px;border-radius:12px;padding:20px;background:linear-gradient(180deg,#fff,#fff9fb);border:1px dashed rgba(255,107,154,0.06);box-shadow:0 10px 30px rgba(200,120,150,0.03)}
 
-  /* final hug */
-  .final{padding:36px;text-align:center}
-  .big-heart{width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #ff90b0, #ff4f82);margin:18px auto;box-shadow:0 20px 60px rgba(255,80,130,0.14);transform:scale(.9);transition:transform .4s ease}
-  .big-heart.expand{transform:scale(1.08)}
+/* journey map */
+.map-area{width:100%;max-width:900px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff6fb);display:flex;flex-direction:column;gap:12px}
+.map-row{display:flex;gap:14px;align-items:center;padding:12px;border-radius:12px;background:linear-gradient(90deg,#fff,#fff6fb);border:1px solid rgba(0,0,0,0.03);transition:transform .22s ease, box-shadow .22s ease}
+.map-row.locked{opacity:.46;filter:grayscale(.02);pointer-events:none}
+.map-row.unlocked{transform:translateY(-2px);box-shadow:0 12px 36px rgba(200,110,140,0.04);pointer-events:auto}
+.map-icon{width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,#ffdff0,#fff0f6);display:flex;align-items:center;justify-content:center;font-size:28px;color:#c03a6d}
 
-  /* responsive */
-  @media (max-width:720px){
-    .hearts-area,.flower-area{width:90%}
-    .map-row{flex-direction:row;flex-wrap:wrap}
-  }
-  /* small helper */
-  .muted{color:var(--muted)}
-  input[type="text"],textarea{padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);width:100%;max-width:420px}
-  .tiny{font-size:13px;color:var(--muted)}
+/* modal (soft) */
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,15,20,0.06);display:flex;align-items:center;justify-content:center;z-index:9999}
+.modal{width:92%;max-width:780px;background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));padding:20px;border-radius:16px;box-shadow:0 40px 80px rgba(240,120,160,0.08)}
+.modal h3{margin:0 0 8px;font-weight:800}
+.modal .muted{color:var(--muted)}
+
+/* gallery slideshow */
+.slideshow{display:flex;gap:14px;align-items:center}
+.slide{width:360px;height:260px;border-radius:14px;overflow:hidden;position:relative;background:#fff;box-shadow:0 14px 36px rgba(200,120,160,0.04)}
+.slide img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* sparkle */
+.sparkle-dot{position:absolute;width:8px;height:8px;background:rgba(255,255,255,0.9);border-radius:50%;box-shadow:0 0 8px rgba(255,200,230,0.8);opacity:0;animation:popSpark 3.8s infinite}
+@keyframes popSpark{
+  0%{transform:scale(.7) translateY(10px);opacity:0}
+  12%{opacity:1}
+  45%{transform:scale(1.6) translateY(-20px);opacity:.95}
+  100%{opacity:0}
+}
+
+/* spinner */
+.spinner{width:56px;height:56px;border-radius:50%;border:5px solid rgba(255,107,154,0.12);border-top-color:var(--accent1);animation:spin 1.2s linear infinite;margin:18px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* final heart */
+.big-heart{width:220px;height:220px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #ffb0c9, #ff5a8a);margin:20px auto;box-shadow:0 30px 80px rgba(255,90,140,0.12);transform:scale(.96);transition:transform .6s cubic-bezier(.2,.9,.2,1)}
+.big-heart.expand{transform:scale(1.06)}
+
+/* footer */
+footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(--muted)}
+
+/* floating hearts background (ALL pages) */
+#floatingHeartBg{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.fh{position:absolute;opacity:.12;transform:translateY(0);animation:fhFloat linear infinite}
+@keyframes fhFloat{0%{transform:translateY(60vh) scale(.6);opacity:.04}50%{transform:translateY(20vh) scale(1);opacity:.12}100%{transform:translateY(-40vh) scale(.95);opacity:0}}
+
+/* small helpers */
+.btn-primary{cursor:pointer;border:0;border-radius:12px;padding:10px 16px;font-weight:700;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;box-shadow:0 12px 36px rgba(255,90,140,0.08)}
+.btn-light{cursor:pointer;border-radius:12px;padding:8px 12px;background:transparent;border:1px solid rgba(255,107,154,0.12);color:var(--accent1);font-weight:700}
+.muted{color:var(--muted)}
+.tiny{font-size:13px;color:var(--muted)}
+@media (max-width:820px){
+  .hearts-area,.flower-area{width:92%}
+  .slide{width:260px;height:180px}
+  .slide img{height:180px}
+  .wrap{margin:12px;padding:12px}
+}
 </style>
 </head>
 <body>
+  <!-- Floating hearts background (ALL pages) -->
+  <div id="floatingHeartBg" aria-hidden="true"></div>
+
   <div class="wrap" role="main" aria-label="For Jay site">
     <div class="header">
-      <div style="display:flex;gap:12px;align-items:center">
-        <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(90deg,#ffafc9,#ff7aa5);display:flex;align-items:center;justify-content:center;color:white;font-weight:700">💗</div>
+      <div class="brand">
+        <div class="logo">💗</div>
         <div>
-          <div style="font-weight:700">A little corner for <span id="nick-jayu">Jayu</span></div>
-          <div class="tiny">Made with love by <strong id="nick-shubhu">Shubhu</strong></div>
+          <div class="title">A little corner for <strong id="nick-jayu">Jayu</strong></div>
+          <div class="subtitle">Made with love by <strong id="nick-shubhu">Shubhu</strong></div>
         </div>
       </div>
-      <div class="tiny muted">Tip: progress is saved locally in your browser</div>
+      <div class="tip">Shubhu ka attitude, Jayu ke liye mute.</div>
     </div>
 
-    <!-- ---------- Welcome pop-up (modal-style, first thing) ---------- -->
-    <div id="welcomeModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;z-index:60">
-      <div style="width:92%;max-width:680px;background:var(--panel);padding:22px;border-radius:18px;text-align:center;box-shadow:0 18px 46px rgba(150,70,120,0.12)">
-        <h2>Hey Jayu — a tiny rule from your baby</h2>
+    <!-- Pages -->
+    <!-- Welcome modal (shown on first load) -->
+    <div id="welcomeModal" class="modal-backdrop" role="dialog" aria-modal="true">
+      <div class="modal" style="text-align:center">
+        <h3 id="welcomeTitle">Hey Jayu — a tiny rule from your baby</h3>
         <p class="muted">Close your eyes for a beat and imagine <strong id="nick-shubhu-inline">Shubhu</strong> pulling your face and saying:</p>
-        <p style="font-weight:700;font-size:18px;margin:10px 0">“I always win because I’m the baby 😤💗 — and you’ll pamper me.”</p>
+        <p style="font-weight:800;font-size:18px;margin:10px 0">“I always win because I’m the baby 😤💗 — and you’ll pamper me.”</p>
         <p class="muted">Tap to accept your job as the official pamperer.</p>
-        <div style="display:flex;gap:12px;justify-content:center;margin-top:12px">
+        <div style="display:flex;justify-content:center;margin-top:12px">
           <button class="btn-primary" id="welcomeAccept">Okay boss-baby 💗</button>
         </div>
       </div>
     </div>
 
-    <!-- PAGES -->
     <!-- Stage 1 -->
     <section id="page1" class="page active">
       <div class="stage">
-        <h1>Stage 1 — Tap hearts (0 → 25%)</h1>
+        <h1 style="font-size:30px;font-weight:800">Stage 1 — Tap hearts (0 → 25%)</h1>
         <div class="meter" aria-hidden>
           <div class="meter-bar" id="meter1" style="width:0%"></div>
         </div>
-        <div class="hearts-area" id="heartsArea" aria-label="tap hearts">
-          <!-- hearts will be injected -->
-        </div>
-        <div style="display:flex;gap:10px;align-items:center">
+        <div class="hearts-area" id="heartsArea" aria-label="tap hearts" role="region" aria-live="polite"></div>
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center">
           <button class="btn-light" id="page1Skip" disabled>Next (locked)</button>
           <div class="tiny muted">Tap hearts to fill the meter — no skipping!</div>
         </div>
@@ -131,14 +170,12 @@
     <!-- Stage 2 -->
     <section id="page2" class="page">
       <div class="stage">
-        <h1>Stage 2 — Catch flowers (25 → 50%)</h1>
+        <h1 style="font-size:30px;font-weight:800">Stage 2 — Catch flowers (25 → 50%)</h1>
         <div class="meter" aria-hidden>
-          <div class="meter-bar" id="meter2" style="width:0%"></div>
+          <div class="meter-bar" id="meter2" style="width:25%"></div>
         </div>
-        <div class="flower-area" id="flowerArea" aria-label="catch flowers">
-          <!-- flowers will be injected -->
-        </div>
-        <div style="display:flex;gap:10px;align-items:center">
+        <div class="flower-area" id="flowerArea" aria-label="catch flowers"></div>
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center">
           <button class="btn-light" id="page2Letter" disabled>Open Mini Letter</button>
           <div class="tiny muted">Collect flowers to unlock the letter</div>
         </div>
@@ -148,13 +185,11 @@
     <!-- Stage 3 -->
     <section id="page3" class="page">
       <div class="stage">
-        <h1>Stage 3 — Follow our tiny path (50 → 75%)</h1>
+        <h1 style="font-size:30px;font-weight:800">Stage 3 — Follow our tiny path (50 → 75%)</h1>
         <div class="path-area">
-          <div class="path-line" id="pathLine">
-            <!-- checkpoints positioned via JS -->
-          </div>
+          <div class="path-line" id="pathLine" role="img" aria-label="path checkpoints"></div>
         </div>
-        <div style="display:flex;gap:10px;align-items:center">
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center">
           <button class="btn-light" id="openGallery" disabled>View Memory Snaps</button>
           <div class="tiny muted">Tap each checkpoint — don’t skip steps, Jayu!</div>
         </div>
@@ -164,15 +199,15 @@
     <!-- Stage 4 -->
     <section id="page4" class="page">
       <div class="stage">
-        <h1>Stage 4 — A line-by-line letter (75 → 100%)</h1>
+        <h1 style="font-size:30px;font-weight:800">Stage 4 — A line-by-line letter (75 → 100%)</h1>
         <div class="meter" aria-hidden>
-          <div class="meter-bar" id="meter4" style="width:0%"></div>
+          <div class="meter-bar" id="meter4" style="width:75%"></div>
         </div>
         <div class="letter-area" id="letterArea">
           <p id="letterTextPreview" class="muted">Tap each tiny heart to reveal the next line of my letter.</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px" id="letterHearts"></div>
         </div>
-        <div style="display:flex;gap:10px;align-items:center;margin-top:10px">
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:10px">
           <button class="btn-primary" id="finishLetter" disabled>Open Final Surprise</button>
           <div class="tiny muted">Reveal the full letter to continue</div>
         </div>
@@ -181,11 +216,11 @@
 
     <!-- Journey Map -->
     <section id="pageMap" class="page">
-      <div style="padding:18px" class="stage">
-        <h1>Journey Map — Tap each stop</h1>
+      <div class="stage">
+        <h1 style="font-size:30px;font-weight:800">Journey Map — Tap each stop</h1>
         <p class="muted">Tap each stop in order. After you answer Stop 5, the future stops will unlock.</p>
         <div class="map-area" id="mapArea" aria-live="polite">
-          <!-- Past (1-5) -->
+          <!-- Past -->
           <div class="map-row locked" data-stop="1" id="stop-1">
             <div class="map-icon">🏫</div>
             <div>
@@ -229,7 +264,7 @@
             </div>
           </div>
 
-          <!-- Future stops (locked until past done) -->
+          <!-- Future stops -->
           <div id="futureStops" style="display:none;flex-direction:column;gap:10px;margin-top:8px">
             <div class="map-row locked" data-stop="A" id="stop-A">
               <div class="map-icon">✈️</div>
@@ -306,7 +341,7 @@
 
         </div>
 
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+        <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:12px">
           <button class="btn-primary" id="mapFinish" disabled>Finish Journey →</button>
           <div class="tiny muted">Complete all stops to finish</div>
         </div>
@@ -314,92 +349,145 @@
     </section>
 
     <!-- Memory modal -->
-    <div id="memoryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.2);align-items:center;justify-content:center;z-index:80">
-      <div style="background:var(--panel);padding:18px;border-radius:12px;max-width:520px">
+    <div id="memoryModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+      <div class="modal">
         <h3>Jayu — your favourite memory</h3>
         <p class="muted tiny">Type one memory you love most. This saves locally on your device.</p>
-        <textarea id="memoryInput" rows="4" placeholder="Type your memory..."></textarea>
-        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
+        <textarea id="memoryInput" rows="4" placeholder="Type your memory..." style="width:100%;border-radius:10px;padding:10px;border:1px solid rgba(0,0,0,0.06)"></textarea>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px">
           <button class="btn-light" id="memoryCancel">Cancel</button>
           <button class="btn-primary" id="memorySave">Save memory</button>
         </div>
       </div>
     </div>
 
-    <!-- Relocation & travel map inside wedding stop (simple arc animation) -->
-    <div id="relocationModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);align-items:center;justify-content:center;z-index:70">
-      <div style="background:var(--panel);padding:18px;border-radius:12px;max-width:720px;">
+    <!-- Info modal (replace alerts) -->
+    <div id="infoModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+      <div class="modal">
+        <h3 id="infoTitle">Note</h3>
+        <div id="infoBody" class="muted" style="margin-top:8px"></div>
+        <div style="display:flex;justify-content:flex-end;margin-top:12px">
+          <button class="btn-primary" id="infoOk">Okay</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Relocation modal: arc plane -->
+    <div id="relocationModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+      <div class="modal">
         <h3>Relocation — a tiny journey animation</h3>
-        <p class="muted tiny">A visual map from Jharkhand → Washington DC (no text, visual only)</p>
+        <p class="muted tiny">A visual map from Jharkhand → Washington DC (visual only)</p>
         <div style="width:100%;height:320px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff6fb);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-          <!-- stylized world box with arc -->
           <svg viewBox="0 0 100 50" preserveAspectRatio="none" style="width:90%;height:80%">
-            <!-- subtle world background (very simplified rectangles) -->
             <rect x="0" y="0" width="100" height="50" fill="#fffdfd"/>
-            <!-- arc path -->
-            <path id="arcPath" d="M10 38 C 35 5, 65 5, 90 38" stroke="rgba(255,107,154,0.22)" stroke-width="1.6" fill="none" stroke-dasharray="2 2"/>
-            <!-- plane marker (animated along the path) -->
-            <circle r="1.2" fill="#ff4f82">
-              <animateMotion begin="0s" dur="3.8s" repeatCount="1" fill="freeze">
-                <mpath xlink:href="#arcPath" />
-              </animateMotion>
+            <path id="arcPath" d="M10 38 C 35 6, 65 6, 90 38" stroke="rgba(255,110,150,0.18)" stroke-width="1.6" fill="none" stroke-dasharray="2 2"/>
+            <circle r="1.6" fill="#ff4f82">
+              <animateMotion begin="0s" dur="4.4s" repeatCount="1" fill="freeze"><mpath xlink:href="#arcPath" /></animateMotion>
             </circle>
-            <!-- start & end markers -->
-            <circle cx="10" cy="38" r="1.8" fill="#ff7aa5"/>
-            <circle cx="90" cy="38" r="1.8" fill="#ff7aa5"/>
+            <circle cx="10" cy="38" r="2.2" fill="#ff7aa5"/>
+            <circle cx="90" cy="38" r="2.2" fill="#ff7aa5"/>
           </svg>
         </div>
-        <div style="display:flex;justify-content:flex-end;margin-top:8px;gap:8px">
+        <div style="display:flex;justify-content:flex-end;margin-top:10px">
           <button class="btn-light" id="relocClose">Close</button>
         </div>
       </div>
     </div>
 
-    <!-- Memory gallery modal -->
-    <div id="galleryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.18);align-items:center;justify-content:center;z-index:70">
-      <div style="background:var(--panel);padding:18px;border-radius:12px;max-width:900px;">
+    <!-- Gallery modal -->
+    <div id="galleryModal" class="modal-backdrop" style="display:none" role="dialog" aria-modal="true">
+      <div class="modal" style="max-width:980px">
         <h3>Memory Snaps</h3>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;padding:8px">
-          <div style="width:280px;border-radius:12px;overflow:hidden">
-            <img id="memImg1" src="" alt="memory 1" style="width:100%;height:220px;object-fit:cover;display:block"/>
-          </div>
-          <div style="width:280px;border-radius:12px;overflow:hidden">
-            <img id="memImg2" src="" alt="memory 2" style="width:100%;height:220px;object-fit:cover;display:block"/>
-          </div>
+        <div id="galleryLoader" style="display:block;text-align:center">
+          <div class="spinner" aria-hidden="true"></div>
+          <div class="muted tiny">Loading your memories…</div>
         </div>
-        <div style="display:flex;justify-content:flex-end;margin-top:8px">
-          <button class="btn-light" id="galleryClose">Close</button>
+        <div id="galleryBody" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div class="slideshow" style="align-items:flex-start">
+              <div class="slide" id="slideImgWrap">
+                <img id="slideImg" src="" alt="memory" />
+                <div class="sparkle" id="sparkContainer"></div>
+              </div>
+              <div class="slide" id="slideImgWrap2" style="display:none">
+                <img id="slideImg2" src="" alt="memory 2" />
+                <div class="sparkle" id="sparkContainer2"></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+              <div style="display:flex;gap:8px">
+                <button class="btn-light" id="prevSlide">Prev</button>
+                <button class="btn-light" id="nextSlide">Next</button>
+              </div>
+              <div class="tiny muted">Auto-advances — but you can control it</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;margin-top:12px">
+            <button class="btn-light" id="galleryClose">Close</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- final page -->
+    <!-- Final page -->
     <section id="pageFinal" class="page">
-      <div class="stage final">
-        <h1>Close your eyes and smile, Jayu…</h1>
-        <p class="muted">Imagine every version of us — school kids, long-distance fools, and old home-makers — and smile. In every timeline, I choose you.</p>
-        <div class="big-heart" id="bigHeart"></div>
-        <div><button class="btn-primary" id="hugBtn">Hug Shubhu 🤍</button></div>
+      <div class="stage" style="align-items:center;justify-content:center">
+        <h1 style="font-size:32px;font-weight:800">Close your eyes and smile, Jayu…</h1>
+        <p class="muted" style="max-width:720px;text-align:center">Imagine every version of us — school kids, long-distance fools, and old home-makers — and smile. In every timeline, I choose you.</p>
+        <div class="big-heart" id="bigHeart" aria-hidden="true"></div>
+        <div style="margin-top:10px"><button class="btn-primary" id="hugBtn">Hug Shubhu 🤍</button></div>
       </div>
     </section>
 
+    <footer>Made with love by <strong id="footerShubhu">Shubhu</strong> 💗</footer>
   </div>
 
 <script>
-/* ---------- small helpers ---------- */
+/* ==================== Helpers & Nicknames ==================== */
 const $ = (id)=>document.getElementById(id);
-
-/* insert nicknames */
 document.getElementById('nick-jayu').textContent = (typeof NICK_JAYU !== 'undefined') ? NICK_JAYU : "Jayu";
 document.getElementById('nick-shubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
 document.getElementById('nick-shubhu-inline').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
+document.getElementById('footerShubhu').textContent = (typeof NICK_SHUBHU !== 'undefined') ? NICK_SHUBHU : "Shubhu";
 
-/* Welcome modal flow */
+/* Modal helper (replacement for alert) */
+function showInfoModal(title, body, cb){
+  $('infoTitle').textContent = title;
+  $('infoBody').textContent = body;
+  $('infoModal').style.display = 'flex';
+  $('infoOk').onclick = ()=>{
+    $('infoModal').style.display = 'none';
+    if(cb) cb();
+  };
+}
+
+/* Populate floating hearts (all pages) with slow drift & low opacity */
+(function populateFloatingHearts(){
+  try{
+    const wrap = $('floatingHeartBg');
+    if(!wrap) return;
+    wrap.innerHTML = '';
+    const icons = ['💗','💖','💕'];
+    for(let i=0;i<22;i++){
+      const d=document.createElement('div');
+      d.className='fh';
+      d.textContent = icons[Math.floor(Math.random()*icons.length)];
+      d.style.left = (5 + Math.random()*90) + '%';
+      d.style.top = (60 + Math.random()*30) + '%';
+      d.style.animationDuration = (18 + Math.random()*26).toFixed(1) + 's';
+      d.style.animationDelay = (Math.random()*8).toFixed(1) + 's';
+      d.style.fontSize = (18 + Math.random()*30) + 'px';
+      wrap.appendChild(d);
+    }
+  }catch(e){console.warn('hearts',e)}
+})();
+
+/* ---------- Welcome modal flow ---------- */
 $('welcomeAccept').addEventListener('click', ()=>{
   $('welcomeModal').style.display = 'none';
 });
 
-/* ---------- Stage 1: hearts ---------- */
+/* ---------- Stage 1: Hearts ---------- */
 const meter1 = $('meter1');
 let progress1 = 0;
 const target1 = 25;
@@ -408,17 +496,16 @@ const heartsArea = $('heartsArea');
 function createHearts(){
   heartsArea.innerHTML = '';
   for(let i=0;i<12;i++){
-    const d = document.createElement('div');
-    d.className = 'heart';
-    d.textContent = '💕';
-    d.style.cursor = 'pointer';
-    d.addEventListener('click', ()=> {
+    const d=document.createElement('div');
+    d.className='heart';
+    d.textContent='💗';
+    d.addEventListener('click', ()=>{
       if(progress1 >= target1) return;
       progress1 += Math.floor(Math.random()*3)+1;
       if(progress1>target1) progress1 = target1;
       meter1.style.width = progress1 + '%';
-      d.style.transform = 'scale(.96) translateY(2px)';
-      setTimeout(()=> d.style.transform = '', 120);
+      d.style.transform='scale(.96) translateY(2px)';
+      setTimeout(()=> d.style.transform='',120);
       checkStage1();
     });
     heartsArea.appendChild(d);
@@ -426,35 +513,30 @@ function createHearts(){
 }
 function checkStage1(){
   if(progress1 >= target1){
-    $('page1').classList.remove('active');
-    // enable next button but ensure they click it to continue
     $('page1Skip').disabled = false;
-    $('page1Skip').addEventListener('click', ()=> {
-      showPage('page2');
-    }, {once:true});
+    $('page1Skip').onclick = ()=> { showPage('page2'); $('page1Skip').disabled = true; };
   }
 }
 createHearts();
 
-/* ---------- Stage 2: flower catch ---------- */
+/* ---------- Stage 2: Flower catch ---------- */
 const flowerArea = $('flowerArea');
 let progress2 = 25;
 const target2 = 50;
 function createFlowers(){
   flowerArea.innerHTML = '';
-  for(let i=0;i<20;i++){
-    const f = document.createElement('div');
-    f.className = 'flower';
-    // sprinkle icons (flowers, football, ps5, car)
+  for(let i=0;i<18;i++){
+    const f=document.createElement('div');
+    f.className='flower';
     const icons = ['🌸','⚽','🎮','🚗'];
     f.textContent = icons[Math.floor(Math.random()*icons.length)];
-    f.addEventListener('click', ()=> {
+    f.addEventListener('click', ()=>{
       if(progress2 >= target2) return;
       progress2 += 2;
       if(progress2>target2) progress2 = target2;
-      $('meter2').style.width = (progress2) + '%';
-      f.style.opacity = '0.25';
-      f.style.transform = 'scale(.88)';
+      $('meter2').style.width = progress2 + '%';
+      f.style.opacity='0.28';
+      f.style.transform='scale(.88)';
       checkStage2();
     });
     flowerArea.appendChild(f);
@@ -463,73 +545,49 @@ function createFlowers(){
 function checkStage2(){
   if(progress2 >= target2){
     $('page2Letter').disabled = false;
-    $('page2Letter').addEventListener('click', ()=> {
-      // show a short letter modal (quick inline)
-      alert("Mini letter from " + (typeof NICK_SHUBHU!=='undefined'?NICK_SHUBHU:'Shubhu') + ": \"Halfway, and I kept choosing you.\"");
-      showPage('page3');
-    }, {once:true});
+    $('page2Letter').onclick = ()=> {
+      showInfoModal("Mini letter from " + (typeof NICK_SHUBHU!=='undefined'?NICK_SHUBHU:'Shubhu'), "Halfway, and I kept choosing you.", ()=> showPage('page3'));
+    };
   }
 }
 createFlowers();
 
-/* ---------- Stage 3: path checkpoints ---------- */
+/* ---------- Stage 3: Path checkpoints ---------- */
 const pathLine = $('pathLine');
 let checkpointCount = 0;
 const checkpoints = [
   {x:8, label:"We learned to trust."},
-  {x:28, label:"We learned to stay."},
-  {x:52, label:"We learned to love deeper."},
-  {x:76, label:"We chose each other."}
+  {x:30, label:"We learned to stay."},
+  {x:54, label:"We learned to love deeper."},
+  {x:80, label:"We chose each other."}
 ];
 function buildPath(){
   pathLine.innerHTML = '';
   checkpoints.forEach((cp,i)=>{
-    const el = document.createElement('div');
-    el.className = 'checkpoint locked';
+    const el=document.createElement('div');
+    el.className='checkpoint locked';
     el.style.left = cp.x + '%';
     el.id = 'cp-'+i;
     el.innerHTML = `<div style="font-weight:700">•</div><div class="muted tiny">${cp.label}</div>`;
-    el.addEventListener('click', ()=> {
-      if(i>checkpointCount) {
-        // blocked - cannot skip ahead
-        alert("Follow the path in order, Jayu — one step at a time 😊");
-        return;
-      }
-      // unlock this checkpoint
+    el.addEventListener('click', ()=>{
+      if(i>checkpointCount){ showInfoModal("Slow down, Jayu","Follow the path in order — one step at a time 😊"); return; }
       el.classList.remove('locked');
       el.classList.add('unlocked');
-      // reveal small message
-      const pop = document.createElement('div');
-      pop.style.position='absolute';
-      pop.style.left = (cp.x-6)+'%';
-      pop.style.top = '-48px';
-      pop.style.background = 'var(--panel)';
-      pop.style.padding='8px 10px';
-      pop.style.borderRadius='10px';
-      pop.style.boxShadow='0 8px 24px rgba(0,0,0,0.06)';
-      pop.innerHTML = `<strong>${cp.label}</strong>`;
-      pathLine.appendChild(pop);
+      showInfoModal("Memory unlocked", cp.label);
       checkpointCount++;
       const percent = 50 + Math.floor((checkpointCount/checkpoints.length)*25);
       $('meter2').style.width = percent + '%';
       if(checkpointCount === checkpoints.length){
         $('openGallery').disabled = false;
-        $('openGallery').addEventListener('click', ()=> {
-          // show gallery modal
-          $('memImg1').src = (typeof IMAGE_MEMORY !== 'undefined') ? IMAGE_MEMORY : '';
-          $('memImg2').src = (typeof IMAGE_UDAIPUR !== 'undefined') ? IMAGE_UDAIPUR : '';
-          $('galleryModal').style.display = 'flex';
-        }, {once:true});
+        $('openGallery').addEventListener('click', openGalleryWithLoader, {once:true});
       }
     });
     pathLine.appendChild(el);
   });
-  // attach close for gallery
-  $('galleryClose').addEventListener('click', ()=> $('galleryModal').style.display = 'none');
 }
 buildPath();
 
-/* ---------- Stage 4: letter reveal ---------- */
+/* ---------- Stage 4: Letter reveal ---------- */
 const letterLines = [
   "Even when the world was loud,",
   "I kept hearing your quiet laugh.",
@@ -543,59 +601,52 @@ const letterHearts = $('letterHearts');
 function buildLetterHearts(){
   letterHearts.innerHTML = '';
   for(let i=0;i<letterLines.length;i++){
-    const h = document.createElement('div');
-    h.className = 'heart';
-    h.style.cursor='pointer';
-    h.textContent = '💗';
+    const h=document.createElement('div');
+    h.className='heart';
+    h.textContent='💗';
     h.addEventListener('click', ()=>{
-      if(h.dataset.revealed === 'true') return;
-      const p = document.createElement('div');
-      p.style.marginTop='8px';
-      p.style.fontWeight='600';
-      p.textContent = letterLines[i];
-      $('letterArea').insertBefore(p, letterHearts);
-      h.dataset.revealed = 'true';
-      revealed++;
-      const percent = 75 + Math.floor((revealed/letterLines.length)*25);
-      $('meter4').style.width = percent + '%';
-      if(revealed === letterLines.length){
-        $('finishLetter').disabled = false;
-        $('finishLetter').addEventListener('click', ()=> {
-          showPage('pageMap');
-          // unlock first map stop after finishing
-          unlockMapStop(1);
-        }, {once:true});
-      }
+      if(h.dataset.revealed==='true') return;
+      showInfoModal("Letter line", letterLines[i], ()=>{
+        const p=document.createElement('div'); p.style.marginTop='8px'; p.style.fontWeight='600'; p.textContent = letterLines[i];
+        $('letterArea').insertBefore(p, letterHearts);
+        h.dataset.revealed='true';
+        revealed++;
+        const percent = 75 + Math.floor((revealed/letterLines.length)*25);
+        $('meter4').style.width = percent + '%';
+        if(revealed === letterLines.length){
+          $('finishLetter').disabled = false;
+          $('finishLetter').onclick = ()=> { showPage('pageMap'); unlockMapStop(1); };
+        }
+      });
     });
     letterHearts.appendChild(h);
   }
 }
 buildLetterHearts();
 
-/* ---------- Journey Map logic ---------- */
+/* ================= Journey Map ================ */
 function unlockMapStop(n){
-  // find element by data-stop (numeric or letters)
-  const id = (typeof n === 'number') ? 'stop-'+n : 'stop-'+n;
   const el = (n>0 && n<=5) ? $('stop-'+n) : document.querySelector(`[data-stop='${n}']`);
   if(!el) return;
   el.classList.remove('locked');
   el.classList.add('unlocked');
 }
 
-/* click handlers for the initial past stops */
+/* Past stops click handling */
 ['stop-1','stop-2','stop-3','stop-4'].forEach(id=>{
-  const el = $(id);
+  const el=$(id);
   el.addEventListener('click', ()=> {
-    if(el.classList.contains('locked')) { alert("Complete previous steps to unlock this stop, Jayu."); return; }
-    // simple popup with story
-    alert(el.querySelector('.muted').textContent + " — " + el.querySelector('div[style*=\"font-weight:700\"]').textContent);
-    // unlock next numeric stop if exists
-    const nextNum = parseInt(id.split('-')[1]) + 1;
-    if($('stop-'+nextNum)) unlockMapStop(nextNum);
+    if(el.classList.contains('locked')){ showInfoModal("Locked","Complete previous steps to unlock this stop, Jayu."); return; }
+    const title = el.querySelector('div[style*="font-weight:700"]').textContent;
+    const body = el.querySelector('.muted').textContent;
+    showInfoModal(title, body, ()=> {
+      const next = parseInt(id.split('-')[1]) + 1;
+      if($('stop-'+next)) unlockMapStop(next);
+    });
   });
 });
 
-/* Stop 5 - favourite memory (mandatory) */
+/* Stop 5: favourite memory (mandatory) */
 $('openMemoryBox').addEventListener('click', ()=>{
   $('memoryModal').style.display = 'flex';
   const saved = localStorage.getItem('favMemory');
@@ -604,93 +655,120 @@ $('openMemoryBox').addEventListener('click', ()=>{
 $('memoryCancel').addEventListener('click', ()=> $('memoryModal').style.display = 'none');
 $('memorySave').addEventListener('click', ()=>{
   const val = $('memoryInput').value.trim();
-  if(!val){ alert("Please share one memory, Jayu — your Shubhu is waiting!"); return; }
+  if(!val){ showInfoModal("Aww","Please share one memory, Jayu — your Shubhu is waiting!"); return; }
   localStorage.setItem('favMemory', val);
   $('memoryModal').style.display = 'none';
-  // show small toast-like alert and unlock future stops container
-  alert("Memory saved. Thank you, Jayu 💗");
-  // reveal future stops block
-  $('futureStops').style.display = 'flex';
-  // unlock first future stop
-  unlockFutureStopsInOrder(0);
+  showInfoModal("Saved","Memory saved. Thank you, Jayu 💗", ()=> {
+    $('futureStops').style.display = 'flex';
+    unlockFutureStopsInOrder(0);
+  });
 });
 
-/* helper to unlock future stops strictly in order */
+/* Unlock future stops in order */
 const futureList = ['A','B','C','D','E','F','G','H','K'];
 function unlockFutureStopsInOrder(idx){
-  if(idx >= futureList.length) {
-    $('mapFinish').disabled = false;
-    return;
-  }
+  if(idx >= futureList.length){ $('mapFinish').disabled = false; return; }
   const code = futureList[idx];
   const el = document.querySelector(`[data-stop='${code}']`);
-  // unlock the element for interaction
-  el.classList.remove('locked');
-  el.classList.add('unlocked');
-  // attach click behaviour that then unlocks next
-  el.addEventListener('click', ()=> {
-    // if this is wedding (C) show relocation modal
-    if(code === 'C') {
-      $('relocationModal').style.display = 'flex';
-      // ensure close button hides it
-      $('relocClose').onclick = ()=> $('relocationModal').style.display = 'none';
-    }
-    // For Udaipur, show the uploaded photo inside:
-    if(code === 'A'){
-      // show the udaipur image inside gallery area or as an alert (lightweight)
-      alert("Udaipur stop — a gentle memory appears.");
-    }
-    // After click, mark unlocked and proceed to next
+  if(!el) return;
+  el.classList.remove('locked'); el.classList.add('unlocked');
+  el.onclick = ()=> {
+    // wedding triggers relocation modal
+    if(code === 'C'){ $('relocationModal').style.display = 'flex'; $('relocClose').onclick = ()=> $('relocationModal').style.display = 'none'; }
+    if(code === 'A'){ showInfoModal("Udaipur", "A gentle memory appears."); }
+    // after click, mark done and unlock next
     el.classList.add('unlocked');
-    // unlock next one
     unlockFutureStopsInOrder(idx+1);
-  }, {once:true});
+  };
 }
 
 /* map finish */
 $('mapFinish').addEventListener('click', ()=> {
-  // ensure all future stops done (we guard by enabling this button at end)
-  alert("You completed the journey, Jayu. One last surprise awaits.");
-  showPage('pageFinal');
+  showInfoModal("Journey complete", "You completed the journey, Jayu. One last surprise awaits.", ()=> showPage('pageFinal'));
 });
 
-/* gallery modal close handled earlier */
+/* ================= Gallery: loader + slideshow + sparkles ================= */
+let slideshowTimer = null;
+let currentSlide = 0;
+const slides = [ (typeof IMAGE_MEMORY !== 'undefined') ? IMAGE_MEMORY : '', (typeof IMAGE_UDAIPUR !== 'undefined') ? IMAGE_UDAIPUR : '' ];
+
+function openGalleryWithLoader(){
+  $('galleryModal').style.display = 'flex';
+  $('galleryLoader').style.display = 'block';
+  $('galleryBody').style.display = 'none';
+  setTimeout(()=> {
+    $('slideImg').src = slides[0];
+    $('slideImg2').src = slides[1];
+    $('galleryLoader').style.display = 'none';
+    $('galleryBody').style.display = 'block';
+    $('slideImgWrap2').style.display = 'block';
+    startSlideshow();
+    spawnSparkles('sparkContainer');
+    spawnSparkles('sparkContainer2');
+  }, 850);
+}
+
+function startSlideshow(){
+  currentSlide = 0; updateSlide();
+  slideshowTimer = setInterval(()=> { currentSlide = (currentSlide + 1) % slides.length; updateSlide(); }, 4600);
+}
+function stopSlideshow(){ clearInterval(slideshowTimer); }
+function updateSlide(){
+  const s1=$('slideImgWrap'), s2=$('slideImgWrap2');
+  if(currentSlide===0){ s1.style.opacity=1; s2.style.opacity=0.28; } else { s2.style.opacity=1; s1.style.opacity=0.28; }
+}
+$('prevSlide').addEventListener('click', ()=> { stopSlideshow(); currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateSlide(); });
+$('nextSlide').addEventListener('click', ()=> { stopSlideshow(); currentSlide = (currentSlide + 1) % slides.length; updateSlide(); });
+
+function spawnSparkles(containerId){
+  const container = $(containerId);
+  if(!container) return;
+  container.innerHTML = '';
+  for(let i=0;i<6;i++){
+    const d=document.createElement('div');
+    d.className='sparkle-dot';
+    d.style.left=(8 + Math.random()*82)+'%';
+    d.style.top=(8 + Math.random()*72)+'%';
+    d.style.animationDelay=(Math.random()*2)+'s';
+    container.appendChild(d);
+  }
+}
+
+/* Gallery close */
+$('galleryClose').addEventListener('click', ()=> { $('galleryModal').style.display = 'none'; stopSlideshow(); });
+
+/* memory gallery convenience close */
+$('galleryClose').addEventListener('click', ()=> $('galleryModal').style.display='none');
+
+/* info modal close handled in showInfoModal */
 
 /* big hug animation */
-$('hugBtn').addEventListener('click', ()=>{
-  const b = $('bigHeart');
-  b.classList.add('expand');
-  setTimeout(()=> b.classList.remove('expand'), 1600);
+$('hugBtn').addEventListener('click', ()=> {
+  const b = $('bigHeart'); b.classList.add('expand'); setTimeout(()=> b.classList.remove('expand'), 1600);
 });
 
-/* small function to switch pages (simple single-page app) */
+/* page switcher */
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=> p.classList.remove('active'));
-  // hide modals if any
-  $('welcomeModal').style.display = 'none';
   if($(id)) $(id).classList.add('active');
-  // small scroller
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* unlocking initial map progression once on map page */
-document.addEventListener('click', function(e){
-  // when we first land on map, ensure stop-1 is unlocked (we set earlier)
-  // nothing here for now
+/* accessibility: close modals with Escape */
+document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ ['infoModal','memoryModal','galleryModal','relocationModal','welcomeModal'].forEach(id=>{ if($(id)) $(id).style.display='none'; }); stopSlideshow(); }})
+
+/* Small safety: if user refreshes on map or later step, we don't automatically persist active page in this version */
+/* If you want persistent pointer I can add localStorage pointer for current page */
+
+/* Extra: guard initial state: ensure page1 active when landing (if welcome closed) */
+window.addEventListener('load', ()=>{
+  // ensure initial meter widths reflect state
+  $('meter1').style.width = (progress1)+'%';
+  $('meter2').style.width = (progress2)+'%';
+  $('meter4').style.width = (revealed ? (75 + Math.floor((revealed/letterLines.length)*25)) + '%' : '75%');
 });
 
-/* attach gallery open/close */
-$('galleryClose').addEventListener('click', ()=> $('galleryModal').style.display = 'none');
-
-/* initial state: page1 is visible; page1Skip locked until complete */
-/* slight safety: if localStorage had progress markers (optional) you could read them here */
-/* show memory image placeholders (they will be set when gallery opens) */
-
-/* Extra: if user refreshes, we try to keep them on the same page via a simple pointer */
-(function restorePointer(){
-  // no persistent pointer needed for now
-})();
-
+/* End of script */
 </script>
 </body>
 </html>
