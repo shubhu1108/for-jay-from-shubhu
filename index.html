@@ -196,7 +196,7 @@ footer{margin-top:18px;padding:14px;text-align:center;font-size:13px;color:var(-
         <h1 style="font-size:30px;font-weight:800">Journey Map — Tap each stop</h1>
         <p class="muted">Tap each stop in order. After you answer Stop 5, the future stops will unlock.</p>
         <div class="map-area" id="mapArea" aria-live="polite">
-          <!-- past stops -->
+          <!-- past -->
           <div class="map-row locked" data-stop="1" id="stop-1"><div class="map-icon">🏫</div><div><div style="font-weight:700">2005–06 — GIPCL School, Gujarat</div><div class="muted">Where our story starts</div></div></div>
           <div class="map-row locked" data-stop="2" id="stop-2"><div class="map-icon">💬</div><div><div style="font-weight:700">Bench partners → IG reunion (2017)</div><div class="muted">We reconnected years later</div></div></div>
           <div class="map-row locked" data-stop="3" id="stop-3"><div class="map-icon">💗</div><div><div style="font-weight:700">2019 — <span id="proposeText">Shubhu proposed first</span></div><div class="muted">My bold baby move</div></div></div>
@@ -414,7 +414,6 @@ function checkStage2(){
 
     if(!miniLetterOpened){
       miniLetterOpened = true;
-      // mark all flowers collected to prevent further clicks
       document.querySelectorAll('.flower').forEach(fl => { fl.classList.add('collected'); fl.style.pointerEvents='none'; });
       setTimeout(()=> {
         showInfoModal("Mini letter from " + (typeof NICK_SHUBHU!=='undefined'?NICK_SHUBHU:'Shubhu'),
@@ -563,7 +562,6 @@ function openGalleryWithLoader(){
     "Tiny promise: more hugs, more silly playlists, more us.",
     "No matter how many miles — I pick you every time."
   ]);
-  // limit to maximum 6 slides (safe)
   slidesMessages = slidesMessages.slice(0,6);
 
   setTimeout(()=>{
@@ -596,18 +594,14 @@ function stopSlideshow(){ if(slideshowTimer){ clearInterval(slideshowTimer); sli
 function updateSlide(){
   const s1 = $('slideMsg1'), s2 = $('slideMsg2');
   if(!s1) return;
-  // show first message in s1, second in s2 (if exists)
-  // for presentation we'll fade between s1 and s2 when length>1
   if(slidesMessages.length === 1){
     s1.textContent = slidesMessages[0];
     if(s2) s2.style.display='none';
   } else {
-    // compute which two messages to show: show current in s1, next in s2 but dim when not active
     const idx1 = currentSlide;
     const idx2 = (currentSlide + 1) % slidesMessages.length;
     s1.textContent = slidesMessages[idx1];
     if(s2) { s2.textContent = slidesMessages[idx2]; s2.style.display='block'; }
-    // visual emphasis: toggle opacity
     if(s2){
       if(currentSlide % 2 === 0){ s1.style.opacity = 1; s2.style.opacity = 0.28; }
       else { s1.style.opacity = 0.28; s2.style.opacity = 1; }
@@ -640,11 +634,22 @@ function spawnSparkles(containerId){
   }
 }
 
-/* close gallery */
-if($('galleryClose')) $('galleryClose').addEventListener('click', ()=> {
-  const gm = $('galleryModal'); if(gm){ gm.style.display='none'; gm.setAttribute('aria-hidden','true'); }
-  stopSlideshow();
-});
+/* ----- UPDATED: galleryClose handler (auto-advance to Stage 4) ----- */
+if ($('galleryClose')) {
+  $('galleryClose').addEventListener('click', () => {
+    const gm = $('galleryModal');
+    if (gm) {
+      gm.style.display = 'none';
+      gm.setAttribute('aria-hidden', 'true');
+    }
+    stopSlideshow();
+
+    // small delay so the modal hide feels smooth, then advance to Stage 4
+    setTimeout(() => {
+      showPage('page4');
+    }, 220);
+  });
+}
 
 /* relocation close */
 if($('relocClose')) $('relocClose').addEventListener('click', ()=> { const rm=$('relocationModal'); if(rm){ rm.style.display='none'; rm.setAttribute('aria-hidden','true'); } });
